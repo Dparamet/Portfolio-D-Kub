@@ -1,8 +1,10 @@
 // app/aboutme/page.tsx
 
 const skills = [
-  { category: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vanilla JS"] },
-  { category: "Backend / Other", items: ["Node.js", "REST APIs", "Git", "IoT"] },
+  { category: "Languages", items: ["Python", "JavaScript", "Java", "C", "C++ (Arduino)", "SQL"] },
+  { category: "Web & Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML / CSS", "Node.js"] },
+  { category: "Hardware", items: ["ESP32", "Arduino"] },
+  { category: "Design / Video", items: ["Video Editing"] },
 ];
 
 export default function AboutMePage() {

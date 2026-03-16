@@ -14,7 +14,7 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    href: "#hero",
+    href: "#home",
     label: { en: "Home", th: "หน้าแรก" },
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -65,7 +65,7 @@ const navItems: NavItem[] = [
 const sectionIds = navItems.map((item) => item.href.replace("#", ""));
 
 export default function FloatingNav() {
-  const [active, setActive] = useState("#hero");
+  const [active, setActive] = useState("#home");
   const { language, theme } = useSitePreferences();
   const isLight = theme === "light";
   const isThai = language === "th";
@@ -73,7 +73,7 @@ export default function FloatingNav() {
   useEffect(() => {
     const updateActiveSection = () => {
       const marker = window.scrollY + window.innerHeight * 0.35;
-      let current = "#hero";
+      let current = "#home";
 
       for (const id of sectionIds) {
         const section = document.getElementById(id);

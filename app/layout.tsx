@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <SitePreferencesProvider>
           <a
-            href="#hero"
+            href="#home"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-zinc-900 focus:border focus:border-sky-400/60 focus:px-3 focus:py-2 focus:text-sm focus:text-zinc-100"
           >
             Skip to content

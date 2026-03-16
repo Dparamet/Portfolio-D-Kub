@@ -5,6 +5,7 @@
 //  To edit content, update the files in /data/ instead of here
 // ============================================================
 
+import { FaGithub, FaEnvelope, FaFacebook, FaInstagram } from "react-icons/fa";
 import { profile } from "@/data/profile";
 import { skills }  from "@/data/skills";
 import { projects } from "@/data/projects";
@@ -57,7 +58,8 @@ export default function HomePage() {
         contact: "ติดต่อ",
         contactSub: "ถ้าสนใจร่วมงานหรืออยากคุยเรื่องโปรเจกต์ ทักมาได้เลยครับ",
         email: "อีเมล",
-        linkedin: "ลิงก์อิน",
+        facebook: "เฟซบุ๊ก",
+        instagram: "อินสตาแกรม",
         sendMessage: "ส่งข้อความ",
         name: "ชื่อ",
         message: "ข้อความ",
@@ -83,7 +85,8 @@ export default function HomePage() {
         contact: "Contact",
         contactSub: "Want to work together or just say hi? Feel free to reach out!",
         email: "Email",
-        linkedin: "LinkedIn",
+        facebook: "Facebook",
+        instagram: "Instagram",
         sendMessage: "Send Message",
         name: "Name",
         message: "Message",
@@ -100,9 +103,9 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* ──────────────── HERO ──────────────── */}
+      {/* ──────────────── HOME ──────────────── */}
       <section
-        id="hero"
+        id="home"
         className={`scroll-mt-16 min-h-[92vh] flex items-center px-6 md:px-20 py-20 ${
           isLight
             ? "bg-gradient-to-br from-slate-50 via-white to-sky-50"
@@ -172,35 +175,47 @@ export default function HomePage() {
                 href={profile.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
                   isLight
                     ? "bg-white text-slate-700 border-slate-300 hover:border-sky-500"
                     : "bg-zinc-900 text-zinc-200 border-zinc-700 hover:border-sky-400"
                 }`}
               >
-                GitHub
+                <FaGithub className="text-base" /> GitHub
               </a>
               <a
-                href={profile.links.linkedin}
+                href={profile.links.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
                   isLight
-                    ? "bg-white text-slate-700 border-slate-300 hover:border-sky-500"
-                    : "bg-zinc-900 text-zinc-200 border-zinc-700 hover:border-sky-400"
+                    ? "bg-white text-blue-600 border-blue-200 hover:border-blue-400"
+                    : "bg-zinc-900 text-blue-400 border-zinc-700 hover:border-blue-400"
                 }`}
               >
-                {text.linkedin}
+                <FaFacebook className="text-base" /> {text.facebook}
+              </a>
+              <a
+                href={profile.links.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
+                  isLight
+                    ? "bg-white text-pink-600 border-pink-200 hover:border-pink-400"
+                    : "bg-zinc-900 text-pink-400 border-zinc-700 hover:border-pink-400"
+                }`}
+              >
+                <FaInstagram className="text-base" /> {text.instagram}
               </a>
               <a
                 href={`mailto:${profile.links.email}`}
-                className={`px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
                   isLight
                     ? "bg-sky-50 text-sky-700 border-sky-200 hover:bg-sky-100"
                     : "bg-sky-950/30 text-sky-200 border-sky-500/30 hover:bg-sky-900/40"
                 }`}
               >
-                {text.email}
+                <FaEnvelope className="text-base" /> {text.email}
               </a>
             </div>
           </div>
@@ -321,7 +336,7 @@ export default function HomePage() {
                     : "bg-zinc-950 border-zinc-700"
                 }`}
               >
-                <span className={`font-semibold ${isLight ? "text-sky-600" : "text-sky-300"}`}>{text.email}</span>
+                <span className={`font-semibold flex items-center gap-2 ${isLight ? "text-sky-600" : "text-sky-300"}`}><FaEnvelope /> {text.email}</span>
                 <span className={`text-sm break-all text-right ${isLight ? "text-slate-500" : "text-zinc-400"}`}>{profile.links.email}</span>
               </a>
               <a
@@ -334,24 +349,39 @@ export default function HomePage() {
                     : "bg-zinc-950 border-zinc-700"
                 }`}
               >
-                <span className={`font-semibold ${isLight ? "text-slate-700" : "text-zinc-200"}`}>GitHub</span>
+                <span className={`font-semibold flex items-center gap-2 ${isLight ? "text-slate-700" : "text-zinc-200"}`}><FaGithub /> GitHub</span>
                 <span className={`text-sm break-all text-right ${isLight ? "text-slate-500" : "text-zinc-400"}`}>
                   {profile.links.github.replace("https://", "")}
                 </span>
               </a>
               <a
-                href={profile.links.linkedin}
+                href={profile.links.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-sky-400/70 hover:shadow-md transition-all ${
+                className={`flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-blue-400/70 hover:shadow-md transition-all ${
                   isLight
                     ? "bg-white border-slate-200"
                     : "bg-zinc-950 border-zinc-700"
                 }`}
               >
-                <span className={`font-semibold ${isLight ? "text-slate-700" : "text-zinc-200"}`}>{text.linkedin}</span>
+                <span className={`font-semibold flex items-center gap-2 ${isLight ? "text-blue-600" : "text-blue-400"}`}><FaFacebook /> {text.facebook}</span>
                 <span className={`text-sm break-all text-right ${isLight ? "text-slate-500" : "text-zinc-400"}`}>
-                  {profile.links.linkedin.replace("https://", "")}
+                  {profile.links.facebook.replace("https://", "")}
+                </span>
+              </a>
+              <a
+                href={profile.links.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-pink-400/70 hover:shadow-md transition-all ${
+                  isLight
+                    ? "bg-white border-slate-200"
+                    : "bg-zinc-950 border-zinc-700"
+                }`}
+              >
+                <span className={`font-semibold flex items-center gap-2 ${isLight ? "text-pink-600" : "text-pink-400"}`}><FaInstagram /> {text.instagram}</span>
+                <span className={`text-sm break-all text-right ${isLight ? "text-slate-500" : "text-zinc-400"}`}>
+                  {profile.links.instagram.replace("https://", "")}
                 </span>
               </a>
             </div>

@@ -25,31 +25,50 @@ const THEME_KEY = "portfolio.theme";
 
 const SitePreferencesContext = createContext<SitePreferencesContextType | null>(null);
 
-function getInitialLanguage(): SiteLanguage {
-  if (typeof window === "undefined") return "en";
-
-  const savedLanguage = localStorage.getItem(LANGUAGE_KEY);
-  return savedLanguage === "th" ? "th" : "en";
+function parseStoredLanguage(value: string | null): SiteLanguage {
+  return value === "th" ? "th" : "en";
 }
 
-function getInitialTheme(): SiteTheme {
-  if (typeof window === "undefined") return "dark";
-
-  const savedTheme = localStorage.getItem(THEME_KEY);
-  return savedTheme === "light" ? "light" : "dark";
+function parseStoredTheme(value: string | null): SiteTheme {
+  return value === "light" ? "light" : "dark";
 }
 
 export function SitePreferencesProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<SiteLanguage>(getInitialLanguage);
-  const [theme, setTheme] = useState<SiteTheme>(getInitialTheme);
+  const [language, setLanguage] = useState<SiteLanguage>("en");
+  const [theme, setTheme] = useState<SiteTheme>("dark");
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem(LANGUAGE_KEY, language);
-    localStorage.setItem(THEME_KEY, theme);
+    let savedLanguage: SiteLanguage = "en";
+    let savedTheme: SiteTheme = "dark";
+
+    try {
+      savedLanguage = parseStoredLanguage(localStorage.getItem(LANGUAGE_KEY));
+      savedTheme = parseStoredTheme(localStorage.getItem(THEME_KEY));
+    } catch {
+      // Ignore storage errors and keep safe defaults.
+    }
+
+    queueMicrotask(() => {
+      setLanguage(savedLanguage);
+      setTheme(savedTheme);
+      setIsHydrated(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!isHydrated) return;
+
+    try {
+      localStorage.setItem(LANGUAGE_KEY, language);
+      localStorage.setItem(THEME_KEY, theme);
+    } catch {
+      // Ignore storage errors.
+    }
 
     document.documentElement.setAttribute("lang", language);
     document.documentElement.dataset.theme = theme;
-  }, [language, theme]);
+  }, [isHydrated, language, theme]);
 
   const value = useMemo<SitePreferencesContextType>(() => {
     return {

@@ -1,12 +1,15 @@
 // app/contact/page.tsx
+import { FaEnvelope, FaGithub, FaFacebook, FaInstagram } from "react-icons/fa";
+import type { IconType } from "react-icons";
 
-const links = [
+const links: { label: string; value: string; href: string; color: string; labelColor: string; Icon: IconType }[] = [
   {
     label: "Email",
     value: "your@email.com",
     href: "mailto:your@email.com",
     color: "border-violet-100 hover:border-violet-300",
     labelColor: "text-violet-500",
+    Icon: FaEnvelope,
   },
   {
     label: "GitHub",
@@ -14,13 +17,23 @@ const links = [
     href: "https://github.com/yourusername",
     color: "border-gray-200 hover:border-gray-400",
     labelColor: "text-gray-700",
+    Icon: FaGithub,
   },
   {
-    label: "LinkedIn",
-    value: "linkedin.com/in/yourprofile",
-    href: "https://linkedin.com/in/yourprofile",
-    color: "border-sky-100 hover:border-sky-300",
-    labelColor: "text-sky-500",
+    label: "Facebook",
+    value: "facebook.com/yourprofile",
+    href: "https://facebook.com/yourprofile",
+    color: "border-blue-100 hover:border-blue-300",
+    labelColor: "text-blue-600",
+    Icon: FaFacebook,
+  },
+  {
+    label: "Instagram",
+    value: "instagram.com/yourusername",
+    href: "https://instagram.com/yourusername",
+    color: "border-pink-100 hover:border-pink-300",
+    labelColor: "text-pink-500",
+    Icon: FaInstagram,
   },
 ];
 
@@ -43,7 +56,10 @@ export default function ContactPage() {
             rel="noopener noreferrer"
             className={`flex items-center justify-between p-5 bg-white rounded-2xl border shadow-sm hover:shadow-md transition-all ${link.color}`}
           >
-            <span className={`font-semibold ${link.labelColor}`}>{link.label}</span>
+            <span className={`font-semibold flex items-center gap-2 ${link.labelColor}`}>
+              <link.Icon className="text-base" />
+              {link.label}
+            </span>
             <span className="text-sm text-gray-500">{link.value}</span>
           </a>
         ))}
