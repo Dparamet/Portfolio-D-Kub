@@ -1,23 +1,56 @@
 // app/aboutme/page.tsx
 
+const skills = [
+  { category: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vanilla JS"] },
+  { category: "Backend / Other", items: ["Node.js", "REST APIs", "Git", "IoT"] },
+];
+
 export default function AboutMePage() {
   return (
-    <div className="p-10 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold text-cyan-400 mb-6">ABOUT_ME</h1>
-      <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg">
-        <p className="text-slate-300 leading-relaxed mb-4">
-          Yo! ผมคือ Dev สายลุยที่ชอบแก้ปัญหาด้วย Logic 
-          ตอนนี้กำลังสร้าง Portfolio แบบ Hybrid เพื่อโชว์ทั้งกึ๋นของ Vanilla JS 
-          และความรวดเร็วของ Next.js Framework ครับ
+    <div className="max-w-3xl mx-auto px-6 py-16">
+      <h1 className="text-4xl font-bold text-gray-800 mb-2">About Me</h1>
+      <div className="w-16 h-1 bg-violet-400 rounded mb-10"></div>
+
+      {/* Bio */}
+      <div className="bg-white rounded-2xl p-8 shadow-sm border border-violet-100 mb-6">
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">Who am I?</h2>
+        <p className="text-gray-600 leading-relaxed">
+          Hey! I&apos;m a self-driven developer who loves building things for the web.
+          I&apos;m currently focusing on mastering TypeScript and Next.js while exploring the world of IoT.
+          I believe in learning by doing — every project is a chance to grow.
         </p>
-        <div className="grid grid-cols-2 gap-4 mt-6">
-          <div className="bg-slate-900 p-3 rounded border border-cyan-500/30">
-            <span className="text-cyan-400 font-bold block">Focus</span>
-            <span className="text-sm">Web & IoT</span>
+      </div>
+
+      {/* Skills */}
+      <div className="bg-white rounded-2xl p-8 shadow-sm border border-violet-100 mb-6">
+        <h2 className="text-xl font-semibold text-gray-700 mb-6">Skills</h2>
+        <div className="space-y-5">
+          {skills.map((group) => (
+            <div key={group.category}>
+              <p className="text-xs text-violet-500 font-semibold mb-2 uppercase tracking-widest">{group.category}</p>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((skill) => (
+                  <span key={skill} className="px-3 py-1 bg-violet-50 text-violet-700 border border-violet-200 rounded-full text-sm">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Currently */}
+      <div className="bg-white rounded-2xl p-8 shadow-sm border border-sky-100">
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">Currently</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="bg-sky-50 p-4 rounded-xl border border-sky-100">
+            <span className="text-sky-500 font-bold block mb-1">Learning</span>
+            <span className="text-gray-600 text-sm">TypeScript · Next.js · System Design</span>
           </div>
-          <div className="bg-slate-900 p-3 rounded border border-cyan-500/30">
-            <span className="text-cyan-400 font-bold block">Learning</span>
-            <span className="text-sm">TypeScript & Next.js</span>
+          <div className="bg-pink-50 p-4 rounded-xl border border-pink-100">
+            <span className="text-pink-500 font-bold block mb-1">Building</span>
+            <span className="text-gray-600 text-sm">Portfolio · E-commerce · IoT Dashboard</span>
           </div>
         </div>
       </div>
