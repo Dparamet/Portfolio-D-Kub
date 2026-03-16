@@ -5,6 +5,7 @@ const skills = [
   { category: "Web & Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML / CSS", "Node.js"] },
   { category: "Hardware", items: ["ESP32", "Arduino"] },
   { category: "Design / Video", items: ["Video Editing"] },
+  { category: "Hobby", items: ["Anime", "Gaming", "Self Improvement"] },
 ];
 
 export default function AboutMePage() {

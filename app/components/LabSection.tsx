@@ -1,84 +1,68 @@
 "use client";
 
 import { useState } from "react";
-import { labProjects, labStatusColors, labCategoryColors } from "@/data/lab";
+import { softSkills, softSkillLevelColors, softSkillCategoryColors } from "@/data/lab";
 import { useSitePreferences } from "@/app/components/SitePreferencesProvider";
 
 const categoryTH: Record<string, string> = {
   All: "ทั้งหมด",
-  "Vanilla JS": "วานิลลา JS",
-  React: "รีแอคต์",
-  Python: "ไพธอน",
+  Communication: "การสื่อสาร",
+  Teamwork: "การทำงานเป็นทีม",
+  "Problem Solving": "การแก้ปัญหา",
+  Leadership: "ภาวะผู้นำ",
+  Hobby: "งานอดิเรก",
 };
 
-const labTitleTH: Record<string, string> = {
-  Calculator: "เครื่องคิดเลข",
-  "Todo List": "รายการสิ่งที่ต้องทำ",
+const levelTH: Record<string, string> = {
+  Strong: "เด่น",
+  Growing: "กำลังพัฒนา",
+  Practice: "ฝึกต่อเนื่อง",
 };
 
-const labDescTH: Record<string, string> = {
-  "A clean calculator built with pure Vanilla JS — no frameworks, just raw logic.":
-    "เครื่องคิดเลขที่พัฒนาด้วย Vanilla JS ล้วน ๆ ไม่ใช้เฟรมเวิร์ก เน้นตรรกะการเขียนโค้ด",
-  "A simple todo app with local storage persistence, add/remove/complete tasks.":
-    "แอป Todo แบบง่าย พร้อมบันทึกข้อมูลใน localStorage เพิ่ม/ลบ/ทำเครื่องหมายงานเสร็จได้",
+const levelColorsLight: Record<string, string> = {
+  Strong: "bg-emerald-100 text-emerald-700 border border-emerald-300",
+  Growing: "bg-blue-100 text-blue-700 border border-blue-300",
+  Practice: "bg-slate-100 text-slate-600 border border-slate-300",
 };
 
-const statusTH: Record<string, string> = {
-  Live: "ใช้งานแล้ว",
-  "In Progress": "กำลังพัฒนา",
-  "Coming Soon": "เร็ว ๆ นี้",
-};
-
-const statusColorsLight: Record<string, string> = {
-  Live: "bg-sky-100 text-sky-700 border border-sky-300",
-  "In Progress": "bg-blue-100 text-blue-700 border border-blue-300",
-  "Coming Soon": "bg-slate-100 text-slate-600 border border-slate-300",
-};
-
-export default function LabSection() {
+export default function SoftSkillsSection() {
   const { language, theme } = useSitePreferences();
   const isThai = language === "th";
   const isLight = theme === "light";
 
-  const categories = Array.from(new Set(labProjects.map((p) => p.category)));
+  const categories = Array.from(new Set(softSkills.map((item) => item.category)));
   const tabs = [
-    { label: "All", count: labProjects.length },
+    { label: "All", count: softSkills.length },
     ...categories.map((category) => ({
       label: category,
-      count: labProjects.filter((project) => project.category === category).length,
+      count: softSkills.filter((item) => item.category === category).length,
     })),
   ];
 
   const [active, setActive] = useState("All");
 
   const filtered =
-    active === "All" ? labProjects : labProjects.filter((p) => p.category === active);
+    active === "All" ? softSkills : softSkills.filter((item) => item.category === active);
 
   const ui = isThai
     ? {
-        title: "ห้องทดลอง",
-        subtitle: "พื้นที่ทดลองไอเดียและฝึกเขียนโค้ดแบบเน้นตรรกะ",
+        title: "Soft Skill",
+        subtitle: "ทักษะการทำงานกับคนและแนวคิดในการทำโปรเจกต์ รวมถึงงานอดิเรกของผม",
         emptyPrefix: "ยังไม่มีรายการในหมวด",
         view: "ดู →",
       }
     : {
-        title: "The Lab",
-        subtitle: "My playground for experimenting with logic — no frameworks, just raw code.",
-        emptyPrefix: "No lab items in",
+        title: "Soft Skill",
+        subtitle: "Core interpersonal skills I use in projects, plus hobbies that keep me creative.",
+        emptyPrefix: "No soft-skill items in",
         view: "View →",
       };
 
   const getCategoryLabel = (label: string) =>
     isThai ? (categoryTH[label] ?? label) : label;
 
-  const getLabTitle = (title: string) =>
-    isThai ? (labTitleTH[title] ?? title) : title;
-
-  const getLabDescription = (description: string) =>
-    isThai ? (labDescTH[description] ?? description) : description;
-
   return (
-    <section id="lab" className={`scroll-mt-16 py-20 px-6 md:px-20 ${isLight ? "bg-slate-50" : "bg-zinc-950"}`}>
+    <section id="soft-skill" className={`scroll-mt-16 py-20 px-6 md:px-20 ${isLight ? "bg-slate-50" : "bg-zinc-950"}`}>
       <div className="max-w-6xl mx-auto">
         <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{ui.title}</h2>
         <div className="w-16 h-1 bg-sky-400 rounded mb-4" />
@@ -132,43 +116,43 @@ export default function LabSection() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {filtered.map((project) => {
+            {filtered.map((item) => {
               const colors =
-                labCategoryColors[project.category] ?? labCategoryColors["default"];
+                softSkillCategoryColors[item.category] ?? softSkillCategoryColors["default"];
 
               return (
                 <div
-                  key={project.id}
+                  key={item.id}
                   className={`rounded-2xl p-6 shadow-sm border hover:shadow-lg hover:-translate-y-1 transition-all duration-200 ${
                     isLight ? "bg-white border-slate-200" : "bg-zinc-900"
                   } ${colors.card}`}
                 >
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className={`text-lg font-bold ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{getLabTitle(project.title)}</h3>
+                    <h3 className={`text-lg font-bold ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{item.title}</h3>
                     <span
                       className={`text-xs px-2 py-1 rounded-full font-medium whitespace-nowrap ml-2 ${
                         isLight
-                          ? (statusColorsLight[project.status] ?? labStatusColors[project.status])
-                          : labStatusColors[project.status]
+                          ? (levelColorsLight[item.level] ?? softSkillLevelColors[item.level])
+                          : softSkillLevelColors[item.level]
                       }`}
                     >
-                      {isThai ? (statusTH[project.status] ?? project.status) : project.status}
+                      {isThai ? (levelTH[item.level] ?? item.level) : item.level}
                     </span>
                   </div>
 
                   <p className={`text-sm leading-relaxed mb-4 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>
-                    {getLabDescription(project.description)}
+                    {item.description}
                   </p>
 
                   <div className="flex items-center gap-3">
                     <span
                       className={`px-2 py-1 border rounded text-xs font-medium ${colors.tag}`}
                     >
-                      {project.tech}
+                      {item.focus}
                     </span>
-                    {project.link && (
+                    {item.link && (
                       <a
-                        href={project.link}
+                        href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`text-xs font-semibold hover:underline ml-auto ${isLight ? "text-sky-600" : "text-sky-300"}`}

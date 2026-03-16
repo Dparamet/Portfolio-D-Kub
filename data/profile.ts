@@ -9,13 +9,14 @@ export const profile = {
   tagline:
     "A passionate developer exploring Web, IoT & AI. I might fail 100 times on a single bug — but I only need to win once. My Estus Flask is filled with Coffee ☕.",
   avatar: "D", // initials shown in avatar circle — replace with your image path later
+  avatarImage: "/profile.jpg", // put your photo at /public/profile.jpg
 
   // Personal info cards (About section)
   info: [
     { label: "Role",     value: "Developer & IoT & AI" },
-    { label: "Location", value: "Thailand" },
+    { label: "Location", value: "Thailand Khon Kaen" },
     { label: "Email",    value: "Dparamet1@gmail.com" },
-    { label: "Status",   value: "Open to Work ✓" },
+    { label: "Status",   value: "Try Hard lol" },
   ],
 
   // Links used in Hero social buttons + Contact section

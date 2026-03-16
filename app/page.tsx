@@ -5,13 +5,14 @@
 //  To edit content, update the files in /data/ instead of here
 // ============================================================
 
+import Image from "next/image";
 import { FaGithub, FaEnvelope, FaFacebook, FaInstagram } from "react-icons/fa";
 import { profile } from "@/data/profile";
 import { skills }  from "@/data/skills";
 import { projects } from "@/data/projects";
-import { labProjects } from "@/data/lab";
+import { softSkills } from "@/data/lab";
 import ProjectsSection from "@/app/components/ProjectsSection";
-import LabSection      from "@/app/components/LabSection";
+import SoftSkillsSection from "@/app/components/LabSection";
 import { useSitePreferences } from "@/app/components/SitePreferencesProvider";
 
 const infoLabelTH: Record<string, string> = {
@@ -23,6 +24,7 @@ const infoLabelTH: Record<string, string> = {
 
 const infoValueTH: Record<string, string> = {
   "Web Developer": "นักพัฒนาเว็บ",
+  "Developer & IoT & AI": "นักพัฒนา IoT และ AI",
   Thailand: "ประเทศไทย",
   "Open to Work ✓": "พร้อมรับงาน ✓",
 };
@@ -48,7 +50,7 @@ export default function HomePage() {
         contactMe: "ติดต่อผม",
         stats: {
           mainProjects: "โปรเจกต์หลัก",
-          labItems: "งานทดลอง",
+          softSkillItems: "ซอฟต์สกิล",
           skillGroups: "หมวดทักษะ",
         },
         about: "เกี่ยวกับผม",
@@ -75,7 +77,7 @@ export default function HomePage() {
         contactMe: "Contact Me",
         stats: {
           mainProjects: "Main Projects",
-          labItems: "Lab Items",
+          softSkillItems: "Soft Skills",
           skillGroups: "Skill Groups",
         },
         about: "About Me",
@@ -97,7 +99,7 @@ export default function HomePage() {
 
   const highlightStats = [
     { label: text.stats.mainProjects, value: projects.length },
-    { label: text.stats.labItems, value: labProjects.length },
+    { label: text.stats.softSkillItems, value: softSkills.length },
     { label: text.stats.skillGroups, value: skills.length },
   ];
 
@@ -224,15 +226,26 @@ export default function HomePage() {
           <div className="flex justify-center">
             <div className="relative">
               <div
-                className={`w-60 h-60 rounded-full flex items-center justify-center shadow-2xl ${
+                className={`relative w-60 h-60 rounded-full overflow-hidden flex items-center justify-center shadow-2xl ${
                   isLight
                     ? "bg-gradient-to-br from-sky-500 to-cyan-400 shadow-sky-300/30"
                     : "bg-gradient-to-br from-sky-600 to-slate-700 shadow-black/70"
                 }`}
               >
-                <span className="text-7xl font-extrabold text-white select-none">
-                  {profile.avatar}
-                </span>
+                {profile.avatarImage ? (
+                  <Image
+                    src={profile.avatarImage}
+                    alt={`${profile.name} profile photo`}
+                    fill
+                    sizes="240px"
+                    priority
+                    className="object-cover"
+                  />
+                ) : (
+                  <span className="text-7xl font-extrabold text-white select-none">
+                    {profile.avatar}
+                  </span>
+                )}
               </div>
               <div
                 className={`absolute -inset-4 rounded-full border-2 border-dashed animate-spin ${
@@ -311,9 +324,9 @@ export default function HomePage() {
       {/* Edit projects in /data/projects.ts */}
       <ProjectsSection />
 
-      {/* ──────────────── THE LAB (with filter) ──────────────── */}
-      {/* Edit lab projects in /data/lab.ts */}
-      <LabSection />
+      {/* ──────────────── SOFT SKILL (with filter) ──────────────── */}
+      {/* Edit soft skills & hobby in /data/lab.ts */}
+      <SoftSkillsSection />
 
       {/* ──────────────── CONTACT ──────────────── */}
       {/* Edit links in /data/profile.ts → profile.links */}
