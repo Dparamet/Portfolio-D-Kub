@@ -23,6 +23,7 @@ export default function RootLayout({
           <div className="text-xl font-bold text-cyan-400">PORTFOLIO</div>
           <ul className="flex gap-6">
             <li><Link href="/" className="hover:text-cyan-400">Home</Link></li>
+            <li><Link href="/aboutme" className="hover:text-cyan-400">About Me</Link></li>
             <li><Link href="/product" className="hover:text-cyan-400">Product</Link></li>
             <li><Link href="/lab" className="hover:text-cyan-400">The Lab</Link></li>
             <li><Link href="/contact" className="hover:text-cyan-400">Contact</Link></li>
