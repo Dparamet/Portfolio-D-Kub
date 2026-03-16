@@ -1,5 +1,68 @@
 @import "tailwindcss";
 
+:root {
+  --ui-bg: #060607;
+  --ui-text: #f3f4f6;
+  --ui-ring: #7dd3fc;
+  --ui-selection-bg: #0c4a6e;
+}
+
+:root[data-theme="light"] {
+  --ui-bg: #f8fafc;
+  --ui-text: #0f172a;
+  --ui-ring: #0ea5e9;
+  --ui-selection-bg: #bae6fd;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ui-text);
   font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  background: var(--ui-bg);
+}
+
+html[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(56, 189, 248, 0.22) 0%, transparent 42%),
+    radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.08) 0%, transparent 35%),
+    var(--ui-bg);
+}
+
+html[data-theme="light"] body {
+  background:
+    radial-gradient(circle at 8% 10%, rgba(56, 189, 248, 0.16) 0%, transparent 35%),
+    radial-gradient(circle at 90% 10%, rgba(148, 163, 184, 0.12) 0%, transparent 33%),
+    var(--ui-bg);
+}
+
+::selection {
+  background: var(--ui-selection-bg);
+  color: #e0f2fe;
+}
+
+a,
+button,
+input,
+textarea {
+  transition: all 180ms ease;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--ui-ring);
+  outline-offset: 2px;
 }
