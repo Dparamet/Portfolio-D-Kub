@@ -25,31 +25,39 @@ const THEME_KEY = "portfolio.theme";
 
 const SitePreferencesContext = createContext<SitePreferencesContextType | null>(null);
 
-function getInitialLanguage(): SiteLanguage {
-  if (typeof window === "undefined") return "en";
-
-  const savedLanguage = localStorage.getItem(LANGUAGE_KEY);
-  return savedLanguage === "th" ? "th" : "en";
+function parseStoredLanguage(value: string | null): SiteLanguage {
+  return value === "th" ? "th" : "en";
 }
 
-function getInitialTheme(): SiteTheme {
-  if (typeof window === "undefined") return "dark";
-
-  const savedTheme = localStorage.getItem(THEME_KEY);
-  return savedTheme === "light" ? "light" : "dark";
+function parseStoredTheme(value: string | null): SiteTheme {
+  return value === "light" ? "light" : "dark";
 }
 
 export function SitePreferencesProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<SiteLanguage>(getInitialLanguage);
-  const [theme, setTheme] = useState<SiteTheme>(getInitialTheme);
+  const [language, setLanguage] = useState<SiteLanguage>("en");
+  const [theme, setTheme] = useState<SiteTheme>("dark");
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
+    const savedLanguage = parseStoredLanguage(localStorage.getItem(LANGUAGE_KEY));
+    const savedTheme = parseStoredTheme(localStorage.getItem(THEME_KEY));
+
+    queueMicrotask(() => {
+      setLanguage(savedLanguage);
+      setTheme(savedTheme);
+      setIsHydrated(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!isHydrated) return;
+
     localStorage.setItem(LANGUAGE_KEY, language);
     localStorage.setItem(THEME_KEY, theme);
 
     document.documentElement.setAttribute("lang", language);
     document.documentElement.dataset.theme = theme;
-  }, [language, theme]);
+  }, [isHydrated, language, theme]);
 
   const value = useMemo<SitePreferencesContextType>(() => {
     return {
