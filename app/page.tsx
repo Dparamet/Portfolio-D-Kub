@@ -6,6 +6,8 @@
 // ============================================================
 
 import Image from "next/image";
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import emailjs from "@emailjs/browser";
 import { FaGithub, FaEnvelope, FaFacebook, FaInstagram } from "react-icons/fa";
 import { profile } from "@/data/profile";
 import { skills }  from "@/data/skills";
@@ -35,10 +37,29 @@ const skillCategoryTH: Record<string, string> = {
   "Other Interests": "ความสนใจอื่น ๆ",
 };
 
+type ContactFormData = {
+  from_name: string;
+  from_email: string;
+  message: string;
+};
+
+type ContactSubmitState = "idle" | "sending" | "success" | "error";
+
+const emailjsServiceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+const emailjsTemplateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+const emailjsPublicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
 export default function HomePage() {
   const { language, theme } = useSitePreferences();
   const isThai = language === "th";
   const isLight = theme === "light";
+  const [contactFormData, setContactFormData] = useState<ContactFormData>({
+    from_name: "",
+    from_email: "",
+    message: "",
+  });
+  const [contactSubmitState, setContactSubmitState] = useState<ContactSubmitState>("idle");
+  const [contactFeedback, setContactFeedback] = useState("");
 
   const text = isThai
     ? {
@@ -96,6 +117,69 @@ export default function HomePage() {
         yourEmail: "your@email.com",
         yourMessage: "Type your message here...",
       };
+
+  const contactMessages = isThai
+    ? {
+        missingConfig: "ยังไม่ได้ตั้งค่า EmailJS ในไฟล์ .env ให้ครบ",
+        success: "ส่งข้อความเรียบร้อยแล้ว 🎉",
+        failed: "ส่งข้อความไม่สำเร็จ ลองใหม่อีกครั้งนะครับ",
+      }
+    : {
+        missingConfig: "EmailJS is not configured yet. Please check your .env file.",
+        success: "Your message has been sent successfully 🎉",
+        failed: "Failed to send message. Please try again.",
+      };
+
+  const handleContactChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setContactFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!emailjsServiceId || !emailjsTemplateId || !emailjsPublicKey) {
+      setContactSubmitState("error");
+      setContactFeedback(contactMessages.missingConfig);
+      return;
+    }
+
+    try {
+      setContactSubmitState("sending");
+      setContactFeedback("");
+
+      await emailjs.send(
+        emailjsServiceId,
+        emailjsTemplateId,
+        {
+          from_name: contactFormData.from_name,
+          from_email: contactFormData.from_email,
+          message: contactFormData.message,
+          name: contactFormData.from_name,
+          email: contactFormData.from_email,
+          title: `New message from ${contactFormData.from_name}`,
+          time: new Date().toLocaleString("th-TH"),
+        },
+        {
+          publicKey: emailjsPublicKey,
+        }
+      );
+
+      setContactSubmitState("success");
+      setContactFeedback(contactMessages.success);
+      setContactFormData({
+        from_name: "",
+        from_email: "",
+        message: "",
+      });
+    } catch {
+      setContactSubmitState("error");
+      setContactFeedback(contactMessages.failed);
+    }
+  };
 
   const highlightStats = [
     { label: text.stats.mainProjects, value: projects.length },
@@ -406,11 +490,15 @@ export default function HomePage() {
                 : "bg-zinc-950 border-zinc-700"
             }`}>
               <h3 className={`text-xl font-semibold mb-6 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{text.sendMessage}</h3>
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={handleContactSubmit}>
                 <div>
                   <label className={`block text-sm font-medium mb-1 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>{text.name}</label>
                   <input
                     type="text"
+                    name="from_name"
+                    value={contactFormData.from_name}
+                    onChange={handleContactChange}
+                    required
                     placeholder={text.yourName}
                     className={`w-full px-4 py-2 rounded-xl border focus:outline-none focus:border-sky-400 placeholder-zinc-500 ${
                       isLight
@@ -423,6 +511,10 @@ export default function HomePage() {
                   <label className={`block text-sm font-medium mb-1 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>{text.email}</label>
                   <input
                     type="email"
+                    name="from_email"
+                    value={contactFormData.from_email}
+                    onChange={handleContactChange}
+                    required
                     placeholder={text.yourEmail}
                     className={`w-full px-4 py-2 rounded-xl border focus:outline-none focus:border-sky-400 placeholder-zinc-500 ${
                       isLight
@@ -435,6 +527,10 @@ export default function HomePage() {
                   <label className={`block text-sm font-medium mb-1 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>{text.message}</label>
                   <textarea
                     rows={4}
+                    name="message"
+                    value={contactFormData.message}
+                    onChange={handleContactChange}
+                    required
                     placeholder={text.yourMessage}
                     className={`w-full px-4 py-2 rounded-xl border focus:outline-none focus:border-sky-400 placeholder-zinc-500 resize-none ${
                       isLight
@@ -445,14 +541,28 @@ export default function HomePage() {
                 </div>
                 <button
                   type="submit"
+                  disabled={contactSubmitState === "sending"}
                   className={`w-full py-3 rounded-xl font-semibold transition-colors ${
                     isLight
                       ? "bg-sky-600 text-white hover:bg-sky-500"
                       : "bg-sky-400 text-black hover:bg-sky-300"
                   }`}
                 >
-                  {text.sendMessage}
+                  {contactSubmitState === "sending"
+                    ? (isThai ? "กำลังส่ง..." : "Sending...")
+                    : text.sendMessage}
                 </button>
+                {contactFeedback && (
+                  <p
+                    className={`text-sm ${
+                      contactSubmitState === "success"
+                        ? (isLight ? "text-emerald-600" : "text-emerald-300")
+                        : (isLight ? "text-red-600" : "text-red-300")
+                    }`}
+                  >
+                    {contactFeedback}
+                  </p>
+                )}
               </form>
             </div>
           </div>
