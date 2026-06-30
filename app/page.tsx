@@ -7,7 +7,7 @@
 
 import Image from "next/image";
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import emailjs from "@emailjs/browser";
+
 import { FaGithub, FaEnvelope, FaFacebook, FaInstagram } from "react-icons/fa";
 import { profile } from "@/data/profile";
 import { skills }  from "@/data/skills";
@@ -151,6 +151,7 @@ export default function HomePage() {
       setContactSubmitState("sending");
       setContactFeedback("");
 
+      const { default: emailjs } = await import("@emailjs/browser");
       await emailjs.send(
         emailjsServiceId,
         emailjsTemplateId,
