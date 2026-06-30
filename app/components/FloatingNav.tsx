@@ -71,30 +71,31 @@ export default function FloatingNav() {
   const isThai = language === "th";
 
   useEffect(() => {
+    let rafId = 0;
+
     const updateActiveSection = () => {
       const marker = window.scrollY + window.innerHeight * 0.35;
       let current = "#home";
-
       for (const id of sectionIds) {
-        const section = document.getElementById(id);
-        if (!section) continue;
-
-        const top = section.offsetTop;
-        if (top <= marker) {
-          current = `#${id}`;
-        }
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= marker) current = `#${id}`;
       }
-
       setActive(current);
     };
 
+    const onScrollOrResize = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateActiveSection);
+    };
+
     updateActiveSection();
-    window.addEventListener("scroll", updateActiveSection, { passive: true });
-    window.addEventListener("resize", updateActiveSection);
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", updateActiveSection);
-      window.removeEventListener("resize", updateActiveSection);
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
     };
   }, []);
 
