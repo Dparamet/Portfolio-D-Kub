@@ -21,15 +21,14 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    title: "website",
+    title: "EME RMUTI Department Website",
     description:
-      "A full-stack e-commerce platform with product listings, cart, and checkout flow.",
-    tech: ["wordpress", "Elemental plugin", "html","CSS"],
+      "An official department website built with WordPress and the Elementor plugin, customized with HTML and CSS for layout and styling.",
+    tech: ["WordPress", "Elementor plugin", "HTML", "CSS"],
     status: "In Progress",
     category: "Work",
     gradient: "from-sky-600 to-slate-700",
-    link: "https://eme.eng.rmuti.ac.th/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExSVlPNThUS2p6TklmcTIwZHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6Lr8FTxiDCRKjap2G9Nr1IlUVi-ugDGMhTXuAHnH0fHAgJGCaJg1UOxFr5hw_aem_fN56tUhEMcCit8u7erA-yQ"
-    
+    link: "https://eme.eng.rmuti.ac.th/",
   },
   {
     id: 2,
@@ -104,7 +103,7 @@ export const projects: Project[] = [
       "A self-coded Rock-Paper-Scissors game developed using JavaScript. This project demonstrates core programming concepts such as randomized AI decision-making, complex conditional logic (if-else structures), and dynamic UI updates. It’s a clean, functional example of handling user input and game states in a browser environment.",
     tech: ["JavaScript"],
     status: "Completed",
-    category: "javaScript",
+    category: "Web",
     gradient: "from-slate-700 to-zinc-950",
     link:"https://github.com/Dparamet/Rock-Paper-Scissors-by-me-self-coding.git",
   },
@@ -115,12 +114,12 @@ export const projects: Project[] = [
       "A lightweight randomized prediction system. This project focuses on array manipulation and string handling to deliver fun, randomized daily fortunes, perfect for practicing logic-based data retrieval.",
     tech: ["JavaScript"],
     status: "Completed",
-    category: "jvaScript",
+    category: "Web",
     gradient: "from-slate-700 to-zinc-950",
     link:"https://github.com/Dparamet/Horoscope-version-easy-maybe-.git",
   },
   {
-    id: 11,
+    id: 10,
     title: "Mood Changing by Click",
     description:
       "An interactive mood-based color changing application. Click to change the mood and dynamically update the background color. Built with vanilla HTML, CSS, and JavaScript to create an engaging and responsive user experience.",
@@ -131,7 +130,7 @@ export const projects: Project[] = [
     repo: "https://github.com/Dparamet/Mood-Changing-by-click-html-css-javascript-.git",
   },
   {
-    id: 12,
+    id: 11,
     title: "Random Quotes Generator",
     description:
       "A dynamic quotes generator that displays inspirational and random quotes with each click. Features a beautiful UI with color transitions and quote attribution. Perfect for practicing API integration and DOM manipulation.",
@@ -142,7 +141,7 @@ export const projects: Project[] = [
     repo: "https://github.com/Dparamet/Random-Quotes-website-by-using-javascript-Trifecta-.git",
   },
   {
-    id: 13,
+    id: 12,
     title: "Meme Random",
     description:
       "A fun random meme generator that fetches and displays random memes from the web. Click to get a new meme every time. Great for learning about API calls and async-await patterns in JavaScript.",
@@ -153,7 +152,7 @@ export const projects: Project[] = [
     repo: "https://github.com/Dparamet/Meme-Random.git",
   },
   {
-    id: 14,
+    id: 13,
     title: "Weather Web Frontend",
     description:
       "A real-time weather checking application that searches weather data for any city worldwide. Features dynamic backgrounds that change every 5 seconds and displays temperature, humidity, and weather conditions from OpenWeatherMap API.",
@@ -165,7 +164,7 @@ export const projects: Project[] = [
     repo: "https://github.com/Dparamet/Weather-Web-frontend.git",
   },
   {
-    id: 15,
+    id: 14,
     title: "Pomodoro Timer",
     description:
       "A productivity-focused Pomodoro timer application with customizable work intervals. Features Start/Stop/Reset controls, real-time countdown display, and alert notifications when the session ends. Built with vanilla JavaScript for maximum performance.",
@@ -176,7 +175,7 @@ export const projects: Project[] = [
     repo: "https://github.com/Dparamet/Promodo-Alarm-by-using-html-css-javscript.git",
   },
   {
-    id: 16,
+    id: 15,
     title: "Note Save Diary",
     description:
       "A full-featured note-taking application with Thai calendar integration, deadline management, and anime-themed UI. Features include task tracking, deadline alerts with color coding, real-time Thai clock, and Supabase database integration for persistent storage.",
@@ -187,7 +186,7 @@ export const projects: Project[] = [
     repo: "https://github.com/Dparamet/note-save-diary-by-copilot-4.6.git",
   },
   {
-    id: 17,
+    id: 16,
     title: "To-Do List",
     description:
       "A clean and simple to-do list application for managing daily tasks. Features include adding, editing, and deleting tasks with completion status tracking. Built with a focus on simplicity and ease of use.",
@@ -198,7 +197,7 @@ export const projects: Project[] = [
     repo: "https://github.com/Dparamet/to-do_list.git",
   },
   {
-    id: 18,
+    id: 17,
     title: "Dparamet Portfolio",
     description:
       "A personal portfolio website showcasing projects and skills. Displays a curated collection of web development projects and professional information in a clean, organized layout.",
@@ -209,7 +208,7 @@ export const projects: Project[] = [
     repo: "https://github.com/Dparamet/Dparamet.git",
   },
   {
-    id: 19,
+    id: 18,
     title: "Portfolio D-Kub",
     description:
       "A modern portfolio website featuring a professional layout with project showcases and contact information. Demonstrates web design principles and responsive layout techniques.",

@@ -9,7 +9,22 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Portfolio D-Kub",
-  description: "This is my personal Portfolio and my works that i made",
+  description:
+    "Personal portfolio of D Dparamet — Developer, IoT & AI. Projects, skills, and contact info.",
+  openGraph: {
+    title: "Portfolio D-Kub",
+    description:
+      "Personal portfolio of D Dparamet — Developer, IoT & AI. Projects, skills, and contact info.",
+    type: "website",
+    images: ["/profile.jpg"],
+  },
+  twitter: {
+    card: "summary",
+    title: "Portfolio D-Kub",
+    description:
+      "Personal portfolio of D Dparamet — Developer, IoT & AI. Projects, skills, and contact info.",
+    images: ["/profile.jpg"],
+  },
 };
 
 export default function RootLayout({
