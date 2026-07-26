@@ -1,9 +1,14 @@
 "use client";
 
+// UI for Project filters and cards.
+// Add or edit card content in data/projects.ts.
+// Edit thumbnail behavior in app/components/ProjectThumbnail.tsx.
+
 import { useState } from "react";
-import { FaBook, FaStar, FaCodeBranch, FaExternalLinkAlt } from "react-icons/fa";
+import { FaBook, FaCodeBranch, FaExternalLinkAlt } from "react-icons/fa";
 import { projects } from "@/data/projects";
 import { useSitePreferences } from "@/app/components/SitePreferencesProvider";
+import ProjectThumbnail from "@/app/components/ProjectThumbnail";
 
 // ── Language colours (same as GitHub) ────────────────────────
 const LANG_COLORS: Record<string, string> = {
@@ -147,14 +152,27 @@ export default function ProjectsSection() {
               const langColor = lang ? (LANG_COLORS[lang] ?? "#8b949e") : null;
               const statusDark  = STATUS_DARK[project.status]  ?? STATUS_DARK["Coming Soon"];
               const statusLight = STATUS_LIGHT[project.status] ?? STATUS_LIGHT["Coming Soon"];
+              const projectTitle = isThai ? project.titleTH : project.title;
+              const projectDescription = isThai
+                ? project.descriptionTH
+                : project.description;
+              const projectRole = isThai
+                ? (project.roleTH ?? project.role)
+                : project.role;
+              const projectPeriod = isThai
+                ? (project.periodTH ?? project.period)
+                : project.period;
               // Show max 3 tech topics
               const topics = project.tech.slice(0, 3);
 
               return (
                 <div
                   key={project.id}
-                  className={`flex flex-col rounded-md border p-4 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md ${cardBg} ${cardBorder}`}
+                  className={`group flex flex-col overflow-hidden rounded-md border transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md ${cardBg} ${cardBorder}`}
                 >
+                  <ProjectThumbnail project={project} isLight={isLight} />
+
+                  <div className="flex flex-1 flex-col p-4">
                   {/* Row 1: icon + name + status */}
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div className="flex items-center gap-1.5 min-w-0">
@@ -166,11 +184,11 @@ export default function ProjectsSection() {
                           rel="noopener noreferrer"
                           className={`font-semibold text-sm truncate hover:underline ${nameColor}`}
                         >
-                          {project.title}
+                          {projectTitle}
                         </a>
                       ) : (
                         <span className={`font-semibold text-sm truncate ${nameColor}`}>
-                          {project.title}
+                          {projectTitle}
                         </span>
                       )}
                       <span
@@ -180,7 +198,7 @@ export default function ProjectsSection() {
                             : "text-[#8b949e] ring-[#30363d]"
                         }`}
                       >
-                        Public
+                        {isThai ? "สาธารณะ" : "Public"}
                       </span>
                     </div>
                     <span className={`shrink-0 text-[10px] px-2 py-0.5 rounded-full font-medium whitespace-nowrap ${isLight ? statusLight : statusDark}`}>
@@ -188,9 +206,15 @@ export default function ProjectsSection() {
                     </span>
                   </div>
 
+                  {(projectRole || projectPeriod) && (
+                    <p className={`mb-2 truncate text-[11px] font-medium ${metaColor}`}>
+                      {[projectRole, projectPeriod].filter(Boolean).join(" · ")}
+                    </p>
+                  )}
+
                   {/* Description */}
                   <p className={`text-xs leading-relaxed mb-3 line-clamp-2 ${descColor}`}>
-                    {project.description}
+                    {projectDescription}
                   </p>
 
                   {/* Topics (tech tags) */}
@@ -255,6 +279,7 @@ export default function ProjectsSection() {
                         </a>
                       )}
                     </div>
+                  </div>
                   </div>
                 </div>
               );
