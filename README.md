@@ -9,6 +9,7 @@ Modern portfolio website built with **Next.js (App Router)**, **TypeScript**, an
 - 🌗 Toggle ธีม **Light / Dark**
 - 🌍 Toggle ภาษา **ไทย / English**
 - 🧭 Floating navigation (desktop rail + mobile bottom bar)
+- 💼 Work Experience Timeline จากข้อมูล Resume
 - 🗂️ Project cards สไตล์ **GitHub repo** — language dot, topic pills, live/repo links
 - 🔍 Filter โปรเจกต์ตามหมวดหมู่ (Web, IoT, Python, Java …)
 - 📨 Contact form ส่งข้อความผ่าน **EmailJS** (โหลด lazy — ไม่กระทบ initial bundle)
@@ -18,7 +19,7 @@ Modern portfolio website built with **Next.js (App Router)**, **TypeScript**, an
 
 | Layer | Library / Version |
 |---|---|
-| Framework | Next.js `16.1.6` (App Router) |
+| Framework | Next.js `16.2.12` (App Router) |
 | UI | React `19.2.3` |
 | Language | TypeScript `5` |
 | Styling | Tailwind CSS `v4` |
@@ -37,21 +38,25 @@ portfolio/
 │  └─ components/
 │     ├─ FloatingNav.tsx          # Desktop rail + mobile bottom bar
 │     ├─ PreferenceControls.tsx   # Theme / language toggle buttons
+│     ├─ ExperienceSection.tsx    # Work experience timeline
 │     ├─ ProjectsSection.tsx      # GitHub-style project cards + filter tabs
 │     ├─ LabSection.tsx           # Soft skills section
 │     └─ SitePreferencesProvider.tsx  # Theme/language context (localStorage)
 ├─ data/
 │  ├─ profile.ts      # ชื่อ, role, bio, social links, info cards
+│  ├─ experiences.ts  # ประสบการณ์ทำงานสองภาษา
 │  ├─ projects.ts     # รายการโปรเจกต์ (title, tech, status, repo, link)
 │  ├─ skills.ts       # หมวดทักษะเทคนิค
-│  ├─ lab.ts          # soft skills / lab items
-│  └─ softSkills.ts
+│  └─ lab.ts          # soft skills / hobby items
+├─ lib/
+│  └─ contactValidation.ts  # Validate และ normalize ข้อมูล Contact form
 ├─ public/
 │  ├─ profile.jpg     # รูปโปรไฟล์ (วางที่นี่แล้ว avatarImage จะแสดงอัตโนมัติ)
 │  └─ projects/       # รูปตัวอย่างผลงาน (SVG, PNG, JPG, WebP, AVIF หรือ GIF)
+├─ tests/             # Regression tests: content, security, metadata, accessibility
 ├─ next.config.ts
 ├─ package.json
-└─ .env               # EmailJS keys (ดูหัวข้อ Environment Variables)
+└─ .env.local         # EmailJS public config (ไม่ commit)
 ```
 
 ## 🚀 Getting Started
@@ -90,6 +95,31 @@ npm run dev
 | `npm run build` | Build production bundle |
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
+| `npm test` | Run Node.js regression tests |
+
+ก่อนส่งขึ้น Production แนะนำให้รัน:
+
+```bash
+npm test
+npm run lint
+npx tsc --noEmit
+npm audit --audit-level=high
+npm run build
+```
+
+## 🔒 Security & Contact Validation
+
+- Contact form ตรวจและ trim ข้อมูลก่อนส่งผ่าน EmailJS
+- จำกัดชื่อ `80`, อีเมล `254` และข้อความ `2,000` ตัวอักษร
+- ปฏิเสธช่องว่างล้วน, email ผิดรูปแบบ และ control characters ที่ไม่ปลอดภัย
+- React encode ข้อความตามค่าเริ่มต้น และไม่มีการใช้ `dangerouslySetInnerHTML`
+- Response headers มี CSP, HSTS, Referrer Policy, Permissions Policy, `nosniff` และป้องกัน iframe
+- CSP อนุญาต `'unsafe-eval'` เฉพาะ development สำหรับ React/Turbopack debugging และปิดใน production
+- ปิด `X-Powered-By` เพื่อลดการเปิดเผยข้อมูล framework
+- `.env*`, private keys และ generated build files ถูก ignore จาก Git
+- `package.json` pin dependency overrides ที่มี security patch; ตรวจด้วย `npm audit`
+
+> เว็บไซต์นี้เป็น Frontend-only จึงไม่มี authentication, database หรือ server-side rate limiting ส่วน EmailJS public key เป็นค่าฝั่ง Client ตามรูปแบบของบริการ ไม่ใช่ secret key
 
 ## ✍️ Content Editing Guide
 
@@ -100,6 +130,7 @@ npm run dev
 | ไฟล์ | แก้อะไร |
 |---|---|
 | `data/profile.ts` | ชื่อ, role, bio, social links, info cards |
+| `data/experiences.ts` | ประสบการณ์ทำงาน, ช่วงเวลา, หน้าที่ และทักษะ |
 | `data/projects.ts` | เพิ่ม/ลบ/แก้โปรเจกต์ + tech stack + status |
 | `data/skills.ts` | หมวดทักษะเทคนิค |
 | `data/lab.ts` | soft skills / lab section |
@@ -108,11 +139,14 @@ npm run dev
 
 ```ts
 {
-  id: 20,                          // ต้อง unique
-  title: "ชื่อโปรเจกต์",
-  description: "คำอธิบาย",
+  id: 22,                          // ต้อง unique
+  title: "My New Project",
+  titleTH: "โปรเจกต์ใหม่ของฉัน",
+  description: "What it does, who it serves, and how it helps.",
+  descriptionTH: "ระบุว่าทำอะไร สร้างเพื่อใคร และช่วยแก้ปัญหาอย่างไร",
   tech: ["Next.js", "TypeScript"], // tech[0] ใช้แสดง language dot
   status: "Completed",             // "Completed" | "In Progress" | "Coming Soon"
+  visibility: "Public",            // optional: "Public" | "Private"
   category: "Web",                 // ชื่อนี้จะขึ้นเป็น filter tab อัตโนมัติ
   image: "/projects/my-app.webp",  // optional — ไฟล์ใน public/projects
   imageAlt: "หน้า Dashboard ของ My App", // ต้องใส่เมื่อมี image
@@ -157,6 +191,8 @@ npm run dev
 |---|---|
 | `react-icons` tree-shaking | `optimizePackageImports` ใน `next.config.ts` |
 | EmailJS lazy load | `await import("@emailjs/browser")` เฉพาะตอนกดส่ง form |
+| Project previews | แปลง screenshot 7 ภาพเป็น WebP: `11,061,434` → `322,670` bytes (ลด `97.1%`) |
+| Image budget guard | Regression test จำกัด featured preview ไม่เกิน `300 KB` ต่อภาพ |
 | Scroll listener throttle | `requestAnimationFrame` ใน FloatingNav |
 | CSS transition | เฉพาะ properties ที่ใช้จริง (ไม่ใช้ `transition: all`) |
 | Font | Inter self-hosted ผ่าน `next/font/google` |

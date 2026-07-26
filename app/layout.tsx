@@ -6,23 +6,23 @@ import PreferenceControls from "@/app/components/PreferenceControls";
 import { SitePreferencesProvider } from "@/app/components/SitePreferencesProvider";
 
 const inter = Inter({ subsets: ["latin"] });
+const siteDescription =
+  "Portfolio of Paramet Dennis Hoke Arrington IV, featuring full-stack development, IoT, WordPress, POS, work experience, and contact information.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://portfolio-d-kub.vercel.app"),
   title: "Portfolio D-Kub",
-  description:
-    "Personal portfolio of D Dparamet — Developer, IoT & AI. Projects, skills, and contact info.",
+  description: siteDescription,
   openGraph: {
     title: "Portfolio D-Kub",
-    description:
-      "Personal portfolio of D Dparamet — Developer, IoT & AI. Projects, skills, and contact info.",
+    description: siteDescription,
     type: "website",
     images: ["/profile.jpg"],
   },
   twitter: {
     card: "summary",
     title: "Portfolio D-Kub",
-    description:
-      "Personal portfolio of D Dparamet — Developer, IoT & AI. Projects, skills, and contact info.",
+    description: siteDescription,
     images: ["/profile.jpg"],
   },
 };
@@ -37,7 +37,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <SitePreferencesProvider>
           <a
-            href="#home"
+            href="#main-content"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-zinc-900 focus:border focus:border-sky-400/60 focus:px-3 focus:py-2 focus:text-sm focus:text-zinc-100"
           >
             Skip to content
