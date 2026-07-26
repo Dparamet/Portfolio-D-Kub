@@ -33,6 +33,16 @@ const navItems: NavItem[] = [
     ),
   },
   {
+    href: "#experience",
+    label: { en: "Experience", th: "ประสบการณ์" },
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+        <path fillRule="evenodd" d="M7.5 5.25A2.25 2.25 0 0 1 9.75 3h4.5a2.25 2.25 0 0 1 2.25 2.25v.75h2.25A2.25 2.25 0 0 1 21 8.25v2.628a18.75 18.75 0 0 1-18 0V8.25A2.25 2.25 0 0 1 5.25 6H7.5v-.75Zm7.5.75v-.75a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0-.75.75V6h6Z" clipRule="evenodd" />
+        <path d="M3 12.546V18a2.25 2.25 0 0 0 2.25 2.25h13.5A2.25 2.25 0 0 0 21 18v-5.454a20.264 20.264 0 0 1-8.25 1.954v.75a.75.75 0 0 1-1.5 0v-.75A20.264 20.264 0 0 1 3 12.546Z" />
+      </svg>
+    ),
+  },
+  {
     href: "#projects",
     label: { en: "Projects", th: "ผลงาน" },
     icon: (

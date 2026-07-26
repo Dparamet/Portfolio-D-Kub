@@ -162,6 +162,8 @@ export default function ProjectsSection() {
               const projectPeriod = isThai
                 ? (project.periodTH ?? project.period)
                 : project.period;
+              const visibility = project.visibility ?? "Public";
+              const isPrivate = visibility === "Private";
               // Show max 3 tech topics
               const topics = project.tech.slice(0, 3);
 
@@ -193,12 +195,20 @@ export default function ProjectsSection() {
                       )}
                       <span
                         className={`shrink-0 text-[10px] px-1.5 py-0.5 rounded-full ring-1 font-medium ${
-                          isLight
+                          isPrivate
+                            ? isLight
+                              ? "bg-amber-50 text-amber-700 ring-amber-300"
+                              : "bg-amber-500/10 text-amber-300 ring-amber-400/30"
+                            : isLight
                             ? "text-[#57606a] ring-[#d0d7de]"
                             : "text-[#8b949e] ring-[#30363d]"
                         }`}
                       >
-                        {isThai ? "สาธารณะ" : "Public"}
+                        {isThai
+                          ? isPrivate
+                            ? "ส่วนตัว"
+                            : "สาธารณะ"
+                          : visibility}
                       </span>
                     </div>
                     <span className={`shrink-0 text-[10px] px-2 py-0.5 rounded-full font-medium whitespace-nowrap ${isLight ? statusLight : statusDark}`}>

@@ -9,6 +9,7 @@
 |---|---|---|---|---|
 | Hero / About / Contact | `/#home`, `/#about`, `/#contact` | `data/profile.ts` | `app/page.tsx` | `public/profile.jpg` |
 | Skills | `/#about` | `data/skills.ts` | `app/page.tsx` | ไม่มีรูป |
+| Experience | `/#experience` | `data/experiences.ts` | `app/components/ExperienceSection.tsx` | ไม่มีรูป |
 | Projects | `/#projects` | `data/projects.ts` | `app/components/ProjectsSection.tsx` | `public/projects/` |
 | Soft Skills / Hobby | `/#soft-skill` | `data/lab.ts` | `app/components/LabSection.tsx` | `public/soft-skills/` หรือไฟล์อื่นใน `public/` |
 
@@ -16,6 +17,7 @@
 
 - เปลี่ยนข้อความ รายการ ลิงก์ หรือรูป: แก้ไฟล์ใน `data/`
 - เปลี่ยนหน้าตา Project card: แก้ `app/components/ProjectsSection.tsx`
+- เปลี่ยนหน้าตา Experience Timeline: แก้ `app/components/ExperienceSection.tsx`
 - เปลี่ยนการ crop หรือ fallback ของรูป Project: แก้ `app/components/ProjectThumbnail.tsx`
 - เปลี่ยนหน้าตา Soft Skill card: แก้ `app/components/LabSection.tsx`
 - เปลี่ยนการ crop หรือ fallback ของรูป Soft Skill: แก้ `app/components/SoftSkillThumbnail.tsx`
@@ -63,6 +65,7 @@ npm run build
   descriptionTH: "ระบุว่าใครเป็นผู้ใช้ โปรเจกต์ทำอะไร และแก้ปัญหาอย่างไร",
   tech: ["Next.js", "TypeScript"],
   status: "Completed",
+  visibility: "Public", // optional: "Public" | "Private"; ค่าเริ่มต้นคือ "Public"
   category: "Web",
   image: "/projects/my-new-project.webp",
   imageAlt: "หน้า Dashboard ของ My New Project",
@@ -85,6 +88,35 @@ npm run build
 - เขียนคำอธิบายแบบ 5W1H โดยเน้น `Who`, `What`, `Why` และ `How` ที่สำคัญ ไม่เกินประมาณ 180 ตัวอักษร
 - `gradient` ใช้เป็น fallback เมื่อไม่มี `image`
 - `status` ใช้ได้เฉพาะ `"Completed"`, `"In Progress"` หรือ `"Coming Soon"`
+
+## เพิ่มประสบการณ์ทำงาน
+
+แก้ `data/experiences.ts`:
+
+```ts
+{
+  id: 5,
+  organization: "Company or Project",
+  organizationTH: "บริษัทหรือโครงการ",
+  role: "Your Role",
+  roleTH: "บทบาทของคุณ",
+  period: "August 2026 – Present",
+  periodTH: "สิงหาคม 2569 – ปัจจุบัน",
+  description: "What you did, for whom, and the result.",
+  descriptionTH: "ระบุว่าทำอะไร ให้ใคร และเกิดผลลัพธ์อย่างไร",
+  skills: ["Leadership", "React"],
+  category: "Development",
+  link: "https://example.com",
+}
+```
+
+หมายเหตุ:
+
+- เรียงรายการใหม่สุดไว้ด้านบน
+- `id` ต้องไม่ซ้ำ
+- `category` ใช้ได้เฉพาะ `"Leadership"`, `"Development"` หรือ `"Service"`
+- `link` ไม่บังคับ
+- คำอธิบายควรสรุปหน้าที่ วิธีทำ และผลลัพธ์ ไม่เกินประมาณ 220 ตัวอักษร
 
 ## เพิ่ม Soft Skill Card
 

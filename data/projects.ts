@@ -7,6 +7,7 @@
 // =============================================================================
 
 export type ProjectStatus = "Completed" | "In Progress" | "Coming Soon";
+export type ProjectVisibility = "Public" | "Private";
 
 export interface Project {
   id: number;
@@ -16,6 +17,7 @@ export interface Project {
   descriptionTH: string;
   tech: string[];
   status: ProjectStatus;
+  visibility?: ProjectVisibility;
   category: string;
   gradient: string;
   role?: string;
@@ -32,7 +34,7 @@ export interface Project {
 // EDIT PROJECT CARDS HERE
 // Required: id, title, titleTH, description, descriptionTH, tech, status,
 // category, gradient
-// Optional: role, roleTH, period, periodTH, image, imageAlt, link, repo
+// Optional: visibility, role, roleTH, period, periodTH, image, imageAlt, link, repo
 // -----------------------------------------------------------------------------
 export const projects: Project[] = [
   {
@@ -50,8 +52,8 @@ export const projects: Project[] = [
     roleTH: "หัวหน้าโครงการ · นักพัฒนา WordPress และนักออกแบบ UI",
     period: "March 2025 – April 2025",
     periodTH: "มีนาคม 2568 – เมษายน 2568",
-    image: "/projects/dparamet-portfolio.svg",
-    imageAlt: "Preview of the Dparamet portfolio website interface",
+    image: "/projects/eme.webp",
+    imageAlt: "หน้าเว็บไซต์ภาควิชาวิศวกรรมเครื่องกล RMUTI",
     gradient: "from-slate-600 to-slate-800",
     link: "https://eme.eng.rmuti.ac.th/",
   },
@@ -66,8 +68,8 @@ export const projects: Project[] = [
     tech: ["React", "ESP32", "Sensors Integration", "Embedded Systems"],
     status: "Completed",
     category: "IoT",
-    image: "/projects/dparamet-portfolio.svg",
-    imageAlt: "Preview of the Dparamet portfolio website interface",
+    image: "/projects/warehouse.webp",
+    imageAlt: "ภาพตัวอย่างระบบคลังสินค้าอัจฉริยะ IoT",
     gradient: "from-slate-600 to-slate-800",
     repo: "https://github.com/ru1no888/IOT-smart-Warehouse-Mini-Project.git",
   },
@@ -242,10 +244,10 @@ export const projects: Project[] = [
     tech: ["HTML", "CSS", "JavaScript", "OpenWeatherMap API"],
     status: "Completed",
     category: "Web",
-    image: "/projects/dparamet-portfolio.svg",
-    imageAlt: "Preview of the Dparamet portfolio website interface",
+    image: "/projects/weather.webp",
+    imageAlt: "หน้าเว็บค้นหาและแสดงสภาพอากาศรายเมือง",
     gradient: "from-slate-600 to-slate-800",
-    link: "https://dparamet.github.io/Weather-Web-frontend/",
+    link: "https://weather-web-frontend-rho.vercel.app/",
     repo: "https://github.com/Dparamet/Weather-Web-frontend.git",
   },
   {
@@ -323,9 +325,10 @@ export const projects: Project[] = [
     tech: ["HTML", "CSS", "JavaScript"],
     status: "Completed",
     category: "Web",
-    image: "/projects/dparamet-portfolio.svg",
-    imageAlt: "Preview of the Dparamet portfolio website interface",
+    image: "/projects/portfolio.webp",
+    imageAlt: "หน้าเว็บไซต์ Portfolio D-Kub",
     gradient: "from-slate-600 to-slate-800",
+    link: "https://portfolio-d-kub.vercel.app/",
     repo: "https://github.com/Dparamet/Portfolio-D-Kub.git",
   },
   {
@@ -339,7 +342,10 @@ export const projects: Project[] = [
     tech: ["React", "HTML5 Canvas API", "Local Storage"],
     status: "Completed",
     category: "Web",
+    image: "/projects/mind-paint.webp",
+    imageAlt: "ภาพตัวอย่างแอปวาดภาพ Mind-Paint",
     gradient: "from-fuchsia-500 to-violet-700",
+    link: "https://mind-paint.vercel.app/",
   },
   {
     id: 20,
@@ -351,11 +357,14 @@ export const projects: Project[] = [
       "นำทีม 5 คนพัฒนาระบบ POS สำหรับร้านฮาร์ดแวร์ รองรับสแกนบาร์โค้ด จอลูกค้า สิทธิ์พนักงานด้วย Supabase RLS และบันทึกแบบออฟไลน์",
     tech: ["Supabase", "Supabase RLS", "Barcode Scanning", "Offline-Ready Data", "Git"],
     status: "In Progress",
+    visibility: "Private",
     category: "Work",
     role: "Project Lead",
     roleTH: "หัวหน้าโครงการ",
     period: "May 2026 – Present",
     periodTH: "พฤษภาคม 2569 – ปัจจุบัน",
+    image: "/projects/POS.webp",
+    imageAlt: "หน้าระบบขายหน้าร้านสำหรับฮาร์ดแวร์",
     gradient: "from-amber-500 to-orange-700",
   },
   {
@@ -373,8 +382,10 @@ export const projects: Project[] = [
     roleTH: "ผู้นำด้านเทคนิคและนักพัฒนา Full-Stack",
     period: "May 2026 – July 2026",
     periodTH: "พฤษภาคม 2569 – กรกฎาคม 2569",
+    image: "/projects/trp.webp",
+    imageAlt: "หน้า Landing Page ของ TRP Powers Plus",
     gradient: "from-cyan-600 to-blue-800",
-    link: "https://trppowersplus.com",
+    link: "https://landing-page-trp-powers-plus.vercel.app/",
   },
 
   // ===========================================================================
@@ -389,6 +400,7 @@ export const projects: Project[] = [
   //   descriptionTH: "แอปนี้ทำอะไร สร้างเพื่อใคร และแก้ปัญหาอย่างไร",
   //   tech: ["React", "Firebase"],
   //   status: "Completed", // "Completed" | "In Progress" | "Coming Soon"
+  //   visibility: "Public", // optional: "Public" | "Private"; defaults to "Public"
   //   category: "Mobile", // automatically becomes a filter tab
   //   gradient: "from-amber-200 to-orange-100", // fallback when image is omitted
   //

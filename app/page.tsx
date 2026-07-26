@@ -15,7 +15,13 @@ import { projects } from "@/data/projects";
 import { softSkills } from "@/data/lab";
 import ProjectsSection from "@/app/components/ProjectsSection";
 import SoftSkillsSection from "@/app/components/LabSection";
+import ExperienceSection from "@/app/components/ExperienceSection";
 import { useSitePreferences } from "@/app/components/SitePreferencesProvider";
+import {
+  CONTACT_LIMITS,
+  type ContactFormData,
+  validateContactForm,
+} from "@/lib/contactValidation";
 
 const infoLabelTH: Record<string, string> = {
   Role: "บทบาท",
@@ -44,12 +50,6 @@ const skillCategoryTH: Record<string, string> = {
   "Development Tools": "เครื่องมือพัฒนา",
   "Backend & Data": "ระบบหลังบ้านและข้อมูล",
   "Hardware & Embedded": "ฮาร์ดแวร์และระบบสมองกลฝังตัว",
-};
-
-type ContactFormData = {
-  from_name: string;
-  from_email: string;
-  message: string;
 };
 
 type ContactSubmitState = "idle" | "sending" | "success" | "error";
@@ -133,11 +133,17 @@ export default function HomePage() {
   const contactMessages = isThai
     ? {
         missingConfig: "ยังไม่ได้ตั้งค่า EmailJS ในไฟล์ .env ให้ครบ",
+        required: "กรุณากรอกชื่อ อีเมล และข้อความให้ครบ",
+        invalid: "กรุณาตรวจสอบชื่อ อีเมล และข้อความอีกครั้ง",
+        tooLong: "ข้อมูลยาวเกินกำหนด กรุณาย่อข้อความก่อนส่ง",
         success: "ส่งข้อความเรียบร้อยแล้ว 🎉",
         failed: "ส่งข้อความไม่สำเร็จ ลองใหม่อีกครั้งนะครับ",
       }
     : {
         missingConfig: "EmailJS is not configured yet. Please check your .env file.",
+        required: "Please complete your name, email, and message.",
+        invalid: "Please check your name, email, and message.",
+        tooLong: "Your input is too long. Please shorten it before sending.",
         success: "Your message has been sent successfully 🎉",
         failed: "Failed to send message. Please try again.",
       };
@@ -152,6 +158,13 @@ export default function HomePage() {
 
   const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const validation = validateContactForm(contactFormData);
+    if (!validation.ok) {
+      setContactSubmitState("error");
+      setContactFeedback(contactMessages[validation.reason]);
+      return;
+    }
 
     if (!emailjsServiceId || !emailjsTemplateId || !emailjsPublicKey) {
       setContactSubmitState("error");
@@ -168,12 +181,12 @@ export default function HomePage() {
         emailjsServiceId,
         emailjsTemplateId,
         {
-          from_name: contactFormData.from_name,
-          from_email: contactFormData.from_email,
-          message: contactFormData.message,
-          name: contactFormData.from_name,
-          email: contactFormData.from_email,
-          title: `New message from ${contactFormData.from_name}`,
+          from_name: validation.data.from_name,
+          from_email: validation.data.from_email,
+          message: validation.data.message,
+          name: validation.data.from_name,
+          email: validation.data.from_email,
+          title: `New message from ${validation.data.from_name}`,
           time: new Date().toLocaleString("th-TH"),
         },
         {
@@ -427,6 +440,10 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ──────────────── WORK EXPERIENCE ──────────────── */}
+      {/* Edit timeline entries in /data/experiences.ts */}
+      <ExperienceSection />
+
       {/* ──────────────── PROJECTS (with filter) ──────────────── */}
       {/* Edit projects in /data/projects.ts */}
       <ProjectsSection />
@@ -530,13 +547,16 @@ export default function HomePage() {
               <h3 className={`text-xl font-semibold mb-6 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{text.sendMessage}</h3>
               <form className="space-y-4" onSubmit={handleContactSubmit}>
                 <div>
-                  <label className={`block text-sm font-medium mb-1 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>{text.name}</label>
+                  <label htmlFor="contact-name" className={`block text-sm font-medium mb-1 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>{text.name}</label>
                   <input
+                    id="contact-name"
                     type="text"
                     name="from_name"
+                    autoComplete="name"
                     value={contactFormData.from_name}
                     onChange={handleContactChange}
                     required
+                    maxLength={CONTACT_LIMITS.name}
                     placeholder={text.yourName}
                     className={`w-full px-4 py-2 rounded-xl border focus:outline-none focus:border-sky-400 placeholder-zinc-500 ${
                       isLight
@@ -546,13 +566,16 @@ export default function HomePage() {
                   />
                 </div>
                 <div>
-                  <label className={`block text-sm font-medium mb-1 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>{text.email}</label>
+                  <label htmlFor="contact-email" className={`block text-sm font-medium mb-1 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>{text.email}</label>
                   <input
+                    id="contact-email"
                     type="email"
                     name="from_email"
+                    autoComplete="email"
                     value={contactFormData.from_email}
                     onChange={handleContactChange}
                     required
+                    maxLength={CONTACT_LIMITS.email}
                     placeholder={text.yourEmail}
                     className={`w-full px-4 py-2 rounded-xl border focus:outline-none focus:border-sky-400 placeholder-zinc-500 ${
                       isLight
@@ -562,13 +585,15 @@ export default function HomePage() {
                   />
                 </div>
                 <div>
-                  <label className={`block text-sm font-medium mb-1 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>{text.message}</label>
+                  <label htmlFor="contact-message" className={`block text-sm font-medium mb-1 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>{text.message}</label>
                   <textarea
+                    id="contact-message"
                     rows={4}
                     name="message"
                     value={contactFormData.message}
                     onChange={handleContactChange}
                     required
+                    maxLength={CONTACT_LIMITS.message}
                     placeholder={text.yourMessage}
                     className={`w-full px-4 py-2 rounded-xl border focus:outline-none focus:border-sky-400 placeholder-zinc-500 resize-none ${
                       isLight
@@ -580,19 +605,22 @@ export default function HomePage() {
                 <button
                   type="submit"
                   disabled={contactSubmitState === "sending"}
-                  className={`w-full py-3 rounded-xl font-semibold transition-colors ${
-                    isLight
-                      ? "bg-sky-600 text-white hover:bg-sky-500"
-                      : "bg-sky-400 text-black hover:bg-sky-300"
-                  }`}
+                    className={`w-full py-3 rounded-xl font-semibold transition-colors ${
+                      isLight
+                        ? "bg-sky-600 text-white hover:bg-sky-500"
+                        : "bg-sky-400 text-black hover:bg-sky-300"
+                    } disabled:cursor-not-allowed disabled:opacity-60`}
                 >
                   {contactSubmitState === "sending"
                     ? (isThai ? "กำลังส่ง..." : "Sending...")
                     : text.sendMessage}
                 </button>
                 {contactFeedback && (
-                  <p
-                    className={`text-sm ${
+                      <p
+                        id="contact-feedback"
+                        aria-live="polite"
+                        role={contactSubmitState === "success" ? "status" : "alert"}
+                        className={`text-sm ${
                       contactSubmitState === "success"
                         ? (isLight ? "text-emerald-600" : "text-emerald-300")
                         : (isLight ? "text-red-600" : "text-red-300")
