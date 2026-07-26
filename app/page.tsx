@@ -8,7 +8,7 @@
 import Image from "next/image";
 import { useState, type ChangeEvent, type FormEvent } from "react";
 
-import { FaGithub, FaEnvelope, FaFacebook, FaInstagram } from "react-icons/fa";
+import { FaGithub, FaEnvelope, FaFacebook, FaInstagram, FaPhone } from "react-icons/fa";
 import { profile } from "@/data/profile";
 import { skills }  from "@/data/skills";
 import { projects } from "@/data/projects";
@@ -19,12 +19,19 @@ import { useSitePreferences } from "@/app/components/SitePreferencesProvider";
 
 const infoLabelTH: Record<string, string> = {
   Role: "บทบาท",
+  Education: "การศึกษา",
+  GPA: "เกรดเฉลี่ย",
   Location: "ที่อยู่",
   Email: "อีเมล",
+  Languages: "ภาษา",
   Status: "สถานะ",
 };
 
 const infoValueTH: Record<string, string> = {
+  "Software Intern": "นักศึกษาฝึกงานด้านซอฟต์แวร์",
+  "B.Eng. Computer Engineering, 4th Year": "วิศวกรรมคอมพิวเตอร์ ชั้นปีที่ 4",
+  "Khon Kaen, Thailand": "ขอนแก่น ประเทศไทย",
+  "Thai (Native), English (CEFR B1)": "ไทย (ภาษาแม่), อังกฤษ (CEFR B1)",
   "Web Developer": "นักพัฒนาเว็บ",
   "Developer & IoT & AI": "นักพัฒนา IoT และ AI",
   Thailand: "ประเทศไทย",
@@ -32,9 +39,11 @@ const infoValueTH: Record<string, string> = {
 };
 
 const skillCategoryTH: Record<string, string> = {
-  Frontend: "ฝั่งหน้าเว็บ",
-  "Backend & Tools": "ฝั่งหลังบ้านและเครื่องมือ",
-  "Other Interests": "ความสนใจอื่น ๆ",
+  "Programming Languages": "ภาษาโปรแกรม",
+  Frameworks: "เฟรมเวิร์ก",
+  "Development Tools": "เครื่องมือพัฒนา",
+  "Backend & Data": "ระบบหลังบ้านและข้อมูล",
+  "Hardware & Embedded": "ฮาร์ดแวร์และระบบสมองกลฝังตัว",
 };
 
 type ContactFormData = {
@@ -53,6 +62,7 @@ export default function HomePage() {
   const { language, theme } = useSitePreferences();
   const isThai = language === "th";
   const isLight = theme === "light";
+  const displayName = isThai ? profile.nameTH : profile.name;
   const [contactFormData, setContactFormData] = useState<ContactFormData>({
     from_name: "",
     from_email: "",
@@ -64,9 +74,9 @@ export default function HomePage() {
   const text = isThai
     ? {
         hello: "สวัสดี ผมคือ",
-        role: "นักพัฒนาเว็บ และผู้เรียนรู้",
+        role: "นักศึกษาฝึกงานด้านซอฟต์แวร์",
         tagline:
-          "ผมชอบสร้างงานเว็บที่ใช้งานได้จริง เน้นโค้ดอ่านง่าย ดูแลง่าย และพัฒนาต่อได้เสมอ ตอนนี้กำลังโฟกัสที่ TypeScript และ Next.js",
+          "นักศึกษาวิศวกรรมคอมพิวเตอร์ชั้นปีที่ 4 ผู้มีประสบการณ์นำทีมและพัฒนางาน Freelance ทั้งระบบ Full-Stack, POS, WordPress และ Embedded IoT",
         viewWork: "ดูผลงาน",
         contactMe: "ติดต่อผม",
         stats: {
@@ -76,11 +86,12 @@ export default function HomePage() {
         },
         about: "เกี่ยวกับผม",
         aboutBio:
-          "ผมเป็นคนที่ชอบเรียนรู้ด้วยการลงมือทำจริง ชอบสร้างระบบเว็บที่ทั้งสวยและใช้งานง่าย ตอนนี้กำลังพัฒนาทักษะด้าน TypeScript, Next.js และงานฝั่ง IoT เพื่อให้ทำโปรเจกต์ได้ครบมากขึ้น",
+          "ผมกำลังศึกษาวิศวกรรมคอมพิวเตอร์ชั้นปีที่ 4 ที่มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น เกรดเฉลี่ยสะสม 3.17 มีประสบการณ์เป็น Project Lead และ Full-Stack Developer ในงาน Freelance ตั้งแต่ระบบ POS และ Landing Page ไปจนถึง WordPress และ IoT",
         skills: "ทักษะ",
         contact: "ติดต่อ",
         contactSub: "ถ้าสนใจร่วมงานหรืออยากคุยเรื่องโปรเจกต์ ทักมาได้เลยครับ",
         email: "อีเมล",
+        phone: "โทรศัพท์",
         facebook: "เฟซบุ๊ก",
         instagram: "อินสตาแกรม",
         sendMessage: "ส่งข้อความ",
@@ -103,11 +114,12 @@ export default function HomePage() {
         },
         about: "About Me",
         aboutBio:
-          "Hey! I'm a self-driven developer who loves building things for the web. I'm currently focusing on mastering TypeScript and Next.js while exploring IoT. I believe in learning by doing — every project is a chance to grow.",
+          "I'm a fourth-year Computer Engineering student at Rajamangala University of Technology Isan, Khon Kaen Campus, with a cumulative GPA of 3.17. My freelance experience includes leading teams and building POS systems, full-stack landing pages, WordPress solutions, and embedded IoT projects.",
         skills: "Skills",
         contact: "Contact",
         contactSub: "Want to work together or just say hi? Feel free to reach out!",
         email: "Email",
+        phone: "Phone",
         facebook: "Facebook",
         instagram: "Instagram",
         sendMessage: "Send Message",
@@ -193,7 +205,7 @@ export default function HomePage() {
       {/* ──────────────── HOME ──────────────── */}
       <section
         id="home"
-        className={`scroll-mt-16 min-h-[92vh] flex items-center px-6 md:px-20 py-20 ${
+        className={`scroll-mt-16 min-h-[92vh] overflow-x-clip flex items-center px-6 md:px-20 py-20 ${
           isLight
             ? "bg-gradient-to-br from-slate-50 via-white to-sky-50"
             : "bg-gradient-to-br from-black via-zinc-950 to-slate-900"
@@ -205,8 +217,8 @@ export default function HomePage() {
             <p className={`font-semibold tracking-widest uppercase text-sm mb-3 ${isLight ? "text-sky-600" : "text-sky-300"}`}>
               {text.hello}
             </p>
-            <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-3 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>
-              {profile.name}
+            <h1 className={`text-4xl sm:text-5xl lg:text-5xl font-extrabold leading-tight mb-3 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>
+              {displayName}
             </h1>
             <h2 className={`text-xl sm:text-2xl font-semibold mb-5 ${isLight ? "text-sky-600" : "text-sky-300"}`}>
               {text.role}
@@ -304,6 +316,16 @@ export default function HomePage() {
               >
                 <FaEnvelope className="text-base" /> {text.email}
               </a>
+              <a
+                href={`tel:${profile.links.phone}`}
+                className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
+                  isLight
+                    ? "bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100"
+                    : "bg-emerald-950/30 text-emerald-200 border-emerald-500/30 hover:bg-emerald-900/40"
+                }`}
+              >
+                <FaPhone className="text-base" /> {text.phone}
+              </a>
             </div>
           </div>
 
@@ -320,7 +342,7 @@ export default function HomePage() {
                 {profile.avatarImage ? (
                   <Image
                     src={profile.avatarImage}
-                    alt={`${profile.name} profile photo`}
+                    alt={`${displayName} profile photo`}
                     fill
                     sizes="240px"
                     priority
@@ -426,6 +448,21 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Links — driven by profile.links */}
             <div className="space-y-4">
+              <a
+                href={`tel:${profile.links.phone}`}
+                className={`flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-emerald-400/70 hover:shadow-md transition-all ${
+                  isLight
+                    ? "bg-white border-slate-200"
+                    : "bg-zinc-950 border-zinc-700"
+                }`}
+              >
+                <span className={`font-semibold flex items-center gap-2 ${isLight ? "text-emerald-600" : "text-emerald-300"}`}>
+                  <FaPhone /> {text.phone}
+                </span>
+                <span className={`text-sm ${isLight ? "text-slate-500" : "text-zinc-400"}`}>
+                  {profile.links.phone}
+                </span>
+              </a>
               <a
                 href={`mailto:${profile.links.email}`}
                 className={`flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-sky-400/70 hover:shadow-md transition-all ${
@@ -576,7 +613,7 @@ export default function HomePage() {
           ? "text-slate-500 bg-white border-slate-200"
           : "text-zinc-500 bg-black border-zinc-800"
       }`}>
-        &copy; 2026 {profile.name} &middot; Built with Next.js &amp; Tailwind CSS
+        &copy; 2026 {displayName} &middot; Built with Next.js &amp; Tailwind CSS
       </footer>
     </div>
   );

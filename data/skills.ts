@@ -1,30 +1,44 @@
-// ============================================================
-//  SKILLS DATA
-//  Add a new skill category object, or add items to existing ones
-// ============================================================
+// =============================================================================
+// SKILLS CONTENT
+// Used by: Skills area inside the About section in app/page.tsx
+// Full guide: data/README.md
+// =============================================================================
 
 export interface SkillGroup {
   category: string;
   items: string[];
 }
 
+// -----------------------------------------------------------------------------
+// EDIT SKILL GROUPS HERE
+// -----------------------------------------------------------------------------
 export const skills: SkillGroup[] = [
   {
-    category: "Frontend",
-    items: ["HTML", "CSS", "TypeScript", "React", "Next.js", "Tailwind CSS", "Vanilla JS"],
+    category: "Programming Languages",
+    items: ["C", "Java", "Python", "HTML", "CSS", "JavaScript"],
   },
   {
-    category: "Backend & Tools",
-    items: ["Node.js", "REST APIs", "Git", "GitHub"],
+    category: "Frameworks",
+    items: ["Next.js", "Tailwind CSS", "React", "Spring Boot", "Vite"],
   },
   {
-    category: "Other Interests",
-    items: ["IoT", "Arduino", "Figma"],
+    category: "Development Tools",
+    items: ["VS Code", "Git", "GitHub", "Vercel", "Postman", "XAMPP", "Figma"],
   },
-  // ── HOW TO ADD A NEW GROUP ───────────────────────────────
+  {
+    category: "Backend & Data",
+    items: ["Supabase", "Supabase RLS", "CRM Integration", "Offline-Ready Data"],
+  },
+  {
+    category: "Hardware & Embedded",
+    items: ["ESP32", "Arduino", "Sensors Integration", "Embedded Systems"],
+  },
+  // ===========================================================================
+  // HOW TO ADD A NEW SKILL GROUP
+  // Copy this block, paste it above this guide, then edit the values.
+  // ===========================================================================
   // {
   //   category: "Databases",
   //   items: ["PostgreSQL", "MongoDB", "SQLite"],
   // },
-  // ────────────────────────────────────────────────────────
 ];

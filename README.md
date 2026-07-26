@@ -47,7 +47,8 @@ portfolio/
 │  ├─ lab.ts          # soft skills / lab items
 │  └─ softSkills.ts
 ├─ public/
-│  └─ profile.jpg     # รูปโปรไฟล์ (วางที่นี่แล้ว avatarImage จะแสดงอัตโนมัติ)
+│  ├─ profile.jpg     # รูปโปรไฟล์ (วางที่นี่แล้ว avatarImage จะแสดงอัตโนมัติ)
+│  └─ projects/       # รูปตัวอย่างผลงาน (SVG, PNG, JPG, WebP, AVIF หรือ GIF)
 ├─ next.config.ts
 ├─ package.json
 └─ .env               # EmailJS keys (ดูหัวข้อ Environment Variables)
@@ -94,6 +95,8 @@ npm run dev
 
 แก้ไขเนื้อหาผ่านไฟล์ใน `data/` — ไม่ต้องแตะ component:
 
+> คู่มือรวมสำหรับหน้า, card, field และรูปภาพ: [`data/README.md`](data/README.md)
+
 | ไฟล์ | แก้อะไร |
 |---|---|
 | `data/profile.ts` | ชื่อ, role, bio, social links, info cards |
@@ -111,11 +114,38 @@ npm run dev
   tech: ["Next.js", "TypeScript"], // tech[0] ใช้แสดง language dot
   status: "Completed",             // "Completed" | "In Progress" | "Coming Soon"
   category: "Web",                 // ชื่อนี้จะขึ้นเป็น filter tab อัตโนมัติ
+  image: "/projects/my-app.webp",  // optional — ไฟล์ใน public/projects
+  imageAlt: "หน้า Dashboard ของ My App", // ต้องใส่เมื่อมี image
   repo: "https://github.com/...",  // optional
   link: "https://...",             // optional — live demo
   gradient: "from-sky-600 to-slate-700", // ยังคงอยู่ใน type แม้ card ไม่แสดง thumbnail
 }
 ```
+
+### เพิ่มรูปผลงาน
+
+1. วางไฟล์ใน `public/projects/` เช่น `public/projects/my-app.webp`
+2. เพิ่ม `image: "/projects/my-app.webp"` ในโปรเจกต์ที่ต้องการ
+3. เพิ่ม `imageAlt` เพื่ออธิบายภาพสำหรับผู้ใช้ screen reader
+
+แนะนำภาพอัตราส่วน `16:9` และใช้ WebP/AVIF สำหรับภาพถ่ายหรือ screenshot ส่วน SVG เหมาะกับ illustration และ diagram ที่สร้างจากแหล่งที่เชื่อถือได้ หากไม่กำหนด `image` การ์ดจะแสดง gradient fallback อัตโนมัติ
+
+### เพิ่มรูปใน Soft Skill
+
+วางรูปไว้ใน `public/` หรือสร้างโฟลเดอร์ `public/soft-skills/` จากนั้นแก้รายการใน `data/lab.ts`:
+
+```ts
+{
+  id: 8,
+  title: "Self Improvement",
+  // ข้อมูลอื่น...
+  image: "/soft-skills/self-improvement.webp",
+  imageAlt: "กำลังฝึกทักษะและพัฒนาตัวเอง",
+  imagePosition: "top", // optional: "top" | "center"
+}
+```
+
+การ์ดที่ไม่มี `image` จะแสดงแบบเดิมโดยอัตโนมัติ แนะนำภาพอัตราส่วน `16:9`; ใช้ `imagePosition: "top"` สำหรับภาพบุคคลที่ต้องการเน้นใบหน้า
 
 ### เปลี่ยนรูปโปรไฟล์
 

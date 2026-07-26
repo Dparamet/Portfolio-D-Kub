@@ -1,29 +1,68 @@
-// ============================================================
-//  PROFILE DATA
-//  Edit this file to update your personal info across the site
-// ============================================================
+// =============================================================================
+// PROFILE CONTENT
+// Used by: Hero, About, and Contact sections in app/page.tsx
+// Image path: /public/profile.jpg -> "/profile.jpg"
+// Full guide: data/README.md
+// =============================================================================
 
-export const profile = {
-  name: "D Dparamet",
-  role: "Developer & IoT & AI",
+export interface ProfileInfoItem {
+  label: string;
+  value: string;
+}
+
+export interface ProfileLinks {
+  phone: string;
+  email: string;
+  github: string;
+  facebook: string;
+  instagram: string;
+}
+
+export interface Profile {
+  name: string;
+  nameTH: string;
+  role: string;
+  tagline: string;
+  avatar: string;
+  avatarImage?: string;
+  info: ProfileInfoItem[];
+  links: ProfileLinks;
+}
+
+// -----------------------------------------------------------------------------
+// EDIT PROFILE HERE
+// -----------------------------------------------------------------------------
+export const profile: Profile = {
+  name: "Paramet Dennis Hoke Arrington IV",
+  nameTH: "นายปรเมศว์ เดนนิส โฮค อาร์ริงตัน 4",
+  role: "Software Intern",
   tagline:
-    "A passionate developer exploring Web, IoT & AI. I might fail 100 times on a single bug — but I only need to win once. My Estus Flask is filled with Coffee ☕.",
-  avatar: "D", // initials shown in avatar circle — replace with your image path later
-  avatarImage: "/profile.jpg", // put your photo at /public/profile.jpg
+    "Fourth-year Computer Engineering student with hands-on experience leading freelance software projects across full-stack web development, POS systems, WordPress, and embedded IoT.",
+  avatar: "P",
+  avatarImage: "/profile.jpg",
 
-  // Personal info cards (About section)
+  // About section cards
   info: [
-    { label: "Role",     value: "Developer & IoT & AI" },
-    { label: "Location", value: "Thailand Khon Kaen" },
-    { label: "Email",    value: "Dparamet1@gmail.com" },
-    { label: "Status",   value: "Try Hard lol" },
+    { label: "Role", value: "Software Intern" },
+    {
+      label: "Education",
+      value: "B.Eng. Computer Engineering, 4th Year",
+    },
+    { label: "GPA", value: "3.17" },
+    { label: "Location", value: "Khon Kaen, Thailand" },
+    { label: "Email", value: "paramet.arrington4@gmail.com" },
+    {
+      label: "Languages",
+      value: "Thai (Native), English (CEFR B1)",
+    },
   ],
 
-  // Links used in Hero social buttons + Contact section
+  // Hero social buttons and Contact section
   links: {
-    email:     "Dparamet1@gmail.com",
-    github:    "https://github.com/Dparamet",
-    facebook:  "https://www.facebook.com/d.paramet.2024/",
+    phone: "0911293125",
+    email: "paramet.arrington4@gmail.com",
+    github: "https://github.com/Dparamet",
+    facebook: "https://www.facebook.com/d.paramet.2024/",
     instagram: "https://www.instagram.com/d_paramet/",
   },
 };
