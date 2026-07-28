@@ -47,7 +47,7 @@ portfolio/
 │  ├─ experiences.ts  # ประสบการณ์ทำงานสองภาษา
 │  ├─ projects.ts     # รายการโปรเจกต์ (title, tech, status, repo, link)
 │  ├─ skills.ts       # หมวดทักษะเทคนิค
-│  └─ lab.ts          # soft skills / hobby items
+│  └─ softskills.ts   # soft skills / hobby items
 ├─ lib/
 │  └─ contactValidation.ts  # Validate และ normalize ข้อมูล Contact form
 ├─ public/
@@ -133,7 +133,7 @@ npm run build
 | `data/experiences.ts` | ประสบการณ์ทำงาน, ช่วงเวลา, หน้าที่ และทักษะ |
 | `data/projects.ts` | เพิ่ม/ลบ/แก้โปรเจกต์ + tech stack + status |
 | `data/skills.ts` | หมวดทักษะเทคนิค |
-| `data/lab.ts` | soft skills / lab section |
+| `data/softskills.ts` | soft skills / lab section |
 
 ### เพิ่มโปรเจกต์ใหม่ใน `data/projects.ts`
 
@@ -166,20 +166,28 @@ npm run build
 
 ### เพิ่มรูปใน Soft Skill
 
-วางรูปไว้ใน `public/` หรือสร้างโฟลเดอร์ `public/soft-skills/` จากนั้นแก้รายการใน `data/lab.ts`:
+วางรูปไว้ใน `public/` หรือโฟลเดอร์ `public/softskills/` จากนั้นแก้รายการใน `data/softskills.ts`:
 
 ```ts
 {
   id: 8,
   title: "Self Improvement",
   // ข้อมูลอื่น...
-  image: "/soft-skills/self-improvement.webp",
+  image: "/softskills/self-improvement.webp",
   imageAlt: "กำลังฝึกทักษะและพัฒนาตัวเอง",
   imagePosition: "top", // optional: "top" | "center"
 }
 ```
 
 การ์ดที่ไม่มี `image` จะแสดงแบบเดิมโดยอัตโนมัติ แนะนำภาพอัตราส่วน `16:9`; ใช้ `imagePosition: "top"` สำหรับภาพบุคคลที่ต้องการเน้นใบหน้า
+
+### Motion System
+
+- ทุก section ใช้ `data-reveal` เพื่อแสดงผลแบบ soft fade + slide ขึ้นเล็กน้อย
+- รายการ card ใช้ `getRevealDelay(index)` จาก `lib/motion.ts` เพื่อ stagger ทีละ `80ms` และจำกัดสูงสุด `400ms`
+- เพิ่ม class `motion-card` ให้ card ใหม่ เพื่อใช้ gentle lift ตอน hover/focus
+- `MotionObserver.tsx` ใช้ observer กลางชุดเดียว และตรวจ card ใหม่หลังเปลี่ยน filter
+- ผู้ใช้ที่ตั้งค่า `prefers-reduced-motion: reduce` จะเห็นเนื้อหาทันทีโดยไม่มีการเคลื่อนไหว
 
 ### เปลี่ยนรูปโปรไฟล์
 
@@ -210,7 +218,7 @@ npm run build
 
 - [ ] Backend + Supabase database
 - [ ] Admin CRM panel (เปลี่ยนรูป/content โดยไม่ต้องแก้ code)
-- [ ] Framer Motion animations (scroll reveal, hero effects)
+- [x] Lightweight scroll reveal + card lift animations
 - [ ] SEO meta + Open Graph image
 
 ---

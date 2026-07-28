@@ -40,3 +40,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local design preview workspace
+/.superpowers/
+
+# original high-resolution media kept outside the deployed public folder
+/.source-assets/

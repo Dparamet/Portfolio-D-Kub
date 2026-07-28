@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(currentDirectory, "..");
-const softSkillsFile = path.join(projectRoot, "data", "lab.ts");
+const softSkillsFile = path.join(projectRoot, "data", "softskills.ts");
 
 function loadSoftSkills() {
   const source = fs.readFileSync(softSkillsFile, "utf8");
@@ -85,5 +85,59 @@ test("soft-skill photos use accessible local static assets", () => {
       fs.existsSync(assetPath),
       `${item.title}: missing image asset ${item.image}`,
     );
+  }
+});
+
+test("soft-skill cards 1-10 use the profile photo aligned to the top", () => {
+  const softSkills = loadSoftSkills();
+
+  for (const item of softSkills.filter(({ id }) => id <= 10)) {
+    assert.equal(item.image, "/profile.jpg", `${item.title}: image`);
+    assert.equal(
+      item.imageAlt,
+      "Dparamet practicing continuous self improvement",
+      `${item.title}: imageAlt`,
+    );
+    assert.equal(item.imagePosition, "top", `${item.title}: imagePosition`);
+  }
+});
+
+test("territorial defense leadership cards use approved content and images", () => {
+  const softSkills = loadSoftSkills();
+  const expected = [
+    {
+      id: 11,
+      titleTH: "ผู้บังคับกองพัน รด.",
+      focusTH: "ภาวะผู้นำขั้นสูง",
+      image: "/softskills/Battalion Commander.webp",
+      personnel: "เกือบ 200 นาย",
+    },
+    {
+      id: 12,
+      titleTH: "ผู้บังคับกองร้อย รด.",
+      focusTH: "การประสานงานระดับหน่วย",
+      image:
+        "/softskills/Territorial Defense Student Company Commander.webp",
+      personnel: "ประมาณ 100 นาย",
+    },
+    {
+      id: 13,
+      titleTH: "ผู้บังคับหมวด รด.",
+      focusTH: "ความไว้วางใจและความสามัคคี",
+      image: "/softskills/Territorial Defense Student Platoon Leader.webp",
+      personnel: "ประมาณ 50 นาย",
+    },
+  ];
+
+  for (const requirement of expected) {
+    const item = softSkills.find(({ id }) => id === requirement.id);
+    assert.ok(item, `Missing soft-skill id ${requirement.id}`);
+    assert.equal(item.titleTH, requirement.titleTH);
+    assert.equal(item.focusTH, requirement.focusTH);
+    assert.equal(item.image, requirement.image);
+    assert.match(item.descriptionTH, new RegExp(requirement.personnel));
+    assert.equal(item.level, "Strong");
+    assert.equal(item.category, "Leadership");
+    assert.equal(item.imagePosition, "top");
   }
 });

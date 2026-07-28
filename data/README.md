@@ -11,7 +11,7 @@
 | Skills | `/#about` | `data/skills.ts` | `app/page.tsx` | ไม่มีรูป |
 | Experience | `/#experience` | `data/experiences.ts` | `app/components/ExperienceSection.tsx` | ไม่มีรูป |
 | Projects | `/#projects` | `data/projects.ts` | `app/components/ProjectsSection.tsx` | `public/projects/` |
-| Soft Skills / Hobby | `/#soft-skill` | `data/lab.ts` | `app/components/LabSection.tsx` | `public/soft-skills/` หรือไฟล์อื่นใน `public/` |
+| Soft Skills / Hobby | `/#soft-skill` | `data/softskills.ts` | `app/components/LabSection.tsx` | `public/soft-skills/` หรือไฟล์อื่นใน `public/` |
 
 ## เลือกไฟล์ให้ถูกก่อนแก้
 
@@ -120,7 +120,7 @@ npm run build
 
 ## เพิ่ม Soft Skill Card
 
-แก้ `data/lab.ts`:
+แก้ `data/softskills.ts`:
 
 ```ts
 {

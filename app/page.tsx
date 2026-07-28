@@ -6,17 +6,24 @@
 // ============================================================
 
 import Image from "next/image";
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import {
+  useState,
+  type ChangeEvent,
+  type CSSProperties,
+  type FormEvent,
+} from "react";
 
 import { FaGithub, FaEnvelope, FaFacebook, FaInstagram, FaPhone } from "react-icons/fa";
 import { profile } from "@/data/profile";
 import { skills }  from "@/data/skills";
 import { projects } from "@/data/projects";
-import { softSkills } from "@/data/lab";
+import { softSkills } from "@/data/softskills";
 import ProjectsSection from "@/app/components/ProjectsSection";
 import SoftSkillsSection from "@/app/components/LabSection";
 import ExperienceSection from "@/app/components/ExperienceSection";
+import MotionObserver from "@/app/components/MotionObserver";
 import { useSitePreferences } from "@/app/components/SitePreferencesProvider";
+import { getRevealDelay } from "@/lib/motion";
 import {
   CONTACT_LIMITS,
   type ContactFormData,
@@ -215,6 +222,7 @@ export default function HomePage() {
 
   return (
     <div>
+      <MotionObserver />
       {/* ──────────────── HOME ──────────────── */}
       <section
         id="home"
@@ -226,7 +234,7 @@ export default function HomePage() {
       >
         <div className="max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Left */}
-          <div>
+          <div data-reveal>
             <p className={`font-semibold tracking-widest uppercase text-sm mb-3 ${isLight ? "text-sky-600" : "text-sky-300"}`}>
               {text.hello}
             </p>
@@ -269,7 +277,7 @@ export default function HomePage() {
               {highlightStats.map((stat) => (
                 <div
                   key={stat.label}
-                  className={`rounded-xl border px-3 py-2 text-center shadow-sm ${
+                  className={`motion-card rounded-xl border px-3 py-2 text-center shadow-sm ${
                     isLight
                       ? "border-slate-200 bg-white"
                       : "border-zinc-700 bg-zinc-900/70"
@@ -343,7 +351,13 @@ export default function HomePage() {
           </div>
 
           {/* Right: avatar */}
-          <div className="flex justify-center">
+          <div
+            className="flex justify-center"
+            data-reveal
+            style={
+              { "--reveal-delay": getRevealDelay(1) } as CSSProperties
+            }
+          >
             <div className="relative">
               <div
                 className={`relative w-60 h-60 rounded-full overflow-hidden flex items-center justify-center shadow-2xl ${
@@ -381,12 +395,14 @@ export default function HomePage() {
       {/* ──────────────── ABOUT ──────────────── */}
       <section id="about" className={`scroll-mt-16 py-20 px-6 md:px-20 ${isLight ? "bg-slate-50" : "bg-black"}`}>
         <div className="max-w-6xl mx-auto">
-          <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{text.about}</h2>
-          <div className="w-16 h-1 bg-sky-400 rounded mb-12" />
+          <div data-reveal>
+            <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{text.about}</h2>
+            <div className="w-16 h-1 bg-sky-400 rounded mb-12" />
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Bio + personal info cards — edit profile.info in /data/profile.ts */}
-            <div>
+            <div data-reveal>
               <p className={`leading-relaxed text-lg mb-8 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>
                 {text.aboutBio}
               </p>
@@ -394,7 +410,7 @@ export default function HomePage() {
                 {profile.info.map((item) => (
                   <div
                     key={item.label}
-                    className={`p-4 rounded-xl border ${
+                    className={`motion-card p-4 rounded-xl border ${
                       isLight
                         ? "bg-white border-slate-200"
                         : "bg-zinc-900 border-zinc-700"
@@ -412,7 +428,13 @@ export default function HomePage() {
             </div>
 
             {/* Skills — edit /data/skills.ts */}
-            <div className="space-y-6">
+            <div
+              className="space-y-6"
+              data-reveal
+              style={
+                { "--reveal-delay": getRevealDelay(1) } as CSSProperties
+              }
+            >
               <h3 className={`text-lg font-semibold ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{text.skills}</h3>
               {skills.map((group) => (
                 <div key={group.category}>
@@ -449,25 +471,29 @@ export default function HomePage() {
       <ProjectsSection />
 
       {/* ──────────────── SOFT SKILL (with filter) ──────────────── */}
-      {/* Edit soft skills & hobby in /data/lab.ts */}
+      {/* Edit soft skills & hobby in /data/softskills.ts */}
       <SoftSkillsSection />
 
       {/* ──────────────── CONTACT ──────────────── */}
       {/* Edit links in /data/profile.ts → profile.links */}
       <section id="contact" className={`scroll-mt-16 py-20 px-6 md:px-20 ${isLight ? "bg-slate-100" : "bg-zinc-900"}`}>
         <div className="max-w-6xl mx-auto">
-          <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{text.contact}</h2>
-          <div className="w-16 h-1 bg-sky-400 rounded mb-4" />
-          <p className={`mb-10 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>
-            {text.contactSub}
-          </p>
+          <div data-reveal>
+            <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{text.contact}</h2>
+            <div className="w-16 h-1 bg-sky-400 rounded mb-4" />
+            <p className={`mb-10 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>
+              {text.contactSub}
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Links — driven by profile.links */}
             <div className="space-y-4">
               <a
                 href={`tel:${profile.links.phone}`}
-                className={`flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-emerald-400/70 hover:shadow-md transition-all ${
+                data-reveal
+                style={{ "--reveal-delay": getRevealDelay(0) } as CSSProperties}
+                className={`motion-card flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-emerald-400/70 hover:shadow-md ${
                   isLight
                     ? "bg-white border-slate-200"
                     : "bg-zinc-950 border-zinc-700"
@@ -482,7 +508,9 @@ export default function HomePage() {
               </a>
               <a
                 href={`mailto:${profile.links.email}`}
-                className={`flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-sky-400/70 hover:shadow-md transition-all ${
+                data-reveal
+                style={{ "--reveal-delay": getRevealDelay(1) } as CSSProperties}
+                className={`motion-card flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-sky-400/70 hover:shadow-md ${
                   isLight
                     ? "bg-white border-slate-200"
                     : "bg-zinc-950 border-zinc-700"
@@ -495,7 +523,9 @@ export default function HomePage() {
                 href={profile.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-sky-400/70 hover:shadow-md transition-all ${
+                data-reveal
+                style={{ "--reveal-delay": getRevealDelay(2) } as CSSProperties}
+                className={`motion-card flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-sky-400/70 hover:shadow-md ${
                   isLight
                     ? "bg-white border-slate-200"
                     : "bg-zinc-950 border-zinc-700"
@@ -510,7 +540,9 @@ export default function HomePage() {
                 href={profile.links.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-blue-400/70 hover:shadow-md transition-all ${
+                data-reveal
+                style={{ "--reveal-delay": getRevealDelay(3) } as CSSProperties}
+                className={`motion-card flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-blue-400/70 hover:shadow-md ${
                   isLight
                     ? "bg-white border-slate-200"
                     : "bg-zinc-950 border-zinc-700"
@@ -525,7 +557,9 @@ export default function HomePage() {
                 href={profile.links.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-pink-400/70 hover:shadow-md transition-all ${
+                data-reveal
+                style={{ "--reveal-delay": getRevealDelay(4) } as CSSProperties}
+                className={`motion-card flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-pink-400/70 hover:shadow-md ${
                   isLight
                     ? "bg-white border-slate-200"
                     : "bg-zinc-950 border-zinc-700"
@@ -539,11 +573,15 @@ export default function HomePage() {
             </div>
 
             {/* Contact form */}
-            <div className={`rounded-2xl p-8 shadow-sm border ${
+            <div
+              data-reveal
+              style={{ "--reveal-delay": getRevealDelay(1) } as CSSProperties}
+              className={`motion-card rounded-2xl p-8 shadow-sm border ${
               isLight
                 ? "bg-white border-slate-200"
                 : "bg-zinc-950 border-zinc-700"
-            }`}>
+            }`}
+            >
               <h3 className={`text-xl font-semibold mb-6 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{text.sendMessage}</h3>
               <form className="space-y-4" onSubmit={handleContactSubmit}>
                 <div>

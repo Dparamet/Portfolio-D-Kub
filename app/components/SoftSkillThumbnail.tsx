@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 
-import type { SoftSkillItem } from "@/data/lab";
+import type { SoftSkillItem } from "@/data/softskills";
 
 type SoftSkillThumbnailProps = {
   item: Pick<

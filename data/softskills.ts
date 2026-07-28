@@ -42,6 +42,9 @@ export const softSkills: SoftSkillItem[] = [
     focusTH: "การสื่อสารกับผู้มีส่วนเกี่ยวข้อง",
     level: "Strong",
     category: "Communication",
+    image: "/profile.jpg",
+    imageAlt: "Dparamet practicing continuous self improvement",
+    imagePosition: "top",
   },
   {
     id: 2,
@@ -55,6 +58,9 @@ export const softSkills: SoftSkillItem[] = [
     focusTH: "การทำงานด้วย Git",
     level: "Strong",
     category: "Teamwork",
+    image: "/profile.jpg",
+    imageAlt: "Dparamet practicing continuous self improvement",
+    imagePosition: "top",
   },
   {
     id: 3,
@@ -68,6 +74,9 @@ export const softSkills: SoftSkillItem[] = [
     focusTH: "สถาปัตยกรรมโซลูชัน",
     level: "Strong",
     category: "Problem Solving",
+    image: "/profile.jpg",
+    imageAlt: "Dparamet practicing continuous self improvement",
+    imagePosition: "top",
   },
   {
     id: 4,
@@ -81,6 +90,9 @@ export const softSkills: SoftSkillItem[] = [
     focusTH: "ภาวะผู้นำโครงการ",
     level: "Growing",
     category: "Leadership",
+    image: "/profile.jpg",
+    imageAlt: "Dparamet practicing continuous self improvement",
+    imagePosition: "top",
   },
   {
     id: 5,
@@ -94,6 +106,9 @@ export const softSkills: SoftSkillItem[] = [
     focusTH: "การทำงานข้ามสายงาน",
     level: "Growing",
     category: "Teamwork",
+    image: "/profile.jpg",
+    imageAlt: "Dparamet practicing continuous self improvement",
+    imagePosition: "top",
   },
   {
     id: 6,
@@ -106,6 +121,9 @@ export const softSkills: SoftSkillItem[] = [
     focusTH: "กลยุทธ์",
     level: "Practice",
     category: "Hobby",
+    image: "/profile.jpg",
+    imageAlt: "Dparamet practicing continuous self improvement",
+    imagePosition: "top",
   },
   {
     id: 7,
@@ -118,6 +136,9 @@ export const softSkills: SoftSkillItem[] = [
     focusTH: "ความคิดสร้างสรรค์",
     level: "Practice",
     category: "Hobby",
+    image: "/profile.jpg",
+    imageAlt: "Dparamet practicing continuous self improvement",
+    imagePosition: "top",
   },
   {
     id: 8,
@@ -146,6 +167,9 @@ export const softSkills: SoftSkillItem[] = [
     focusTH: "การจัดลำดับความสำคัญ",
     level: "Strong",
     category: "Leadership",
+    image: "/profile.jpg",
+    imageAlt: "Dparamet practicing continuous self improvement",
+    imagePosition: "top",
   },
   {
     id: 10,
@@ -159,6 +183,57 @@ export const softSkills: SoftSkillItem[] = [
     focusTH: "คุณภาพการบริการ",
     level: "Strong",
     category: "Communication",
+    image: "/profile.jpg",
+    imageAlt: "Dparamet practicing continuous self improvement",
+    imagePosition: "top",
+  },
+  {
+    id: 11,
+    title: "Territorial Defense Student Battalion Commander",
+    titleTH: "ผู้บังคับกองพัน รด.",
+    description:
+      "Developed advanced leadership, discipline, and endurance while overseeing nearly 200 cadets through respectful, calm, and approachable command.",
+    descriptionTH:
+      "ฝึกภาวะผู้นำระดับกองพัน ความอดทน และวินัย พร้อมควบคุมดูแลกำลังพลเกือบ 200 นายด้วยแนวทางที่สันติ เป็นกันเอง และให้เกียรติ",
+    focus: "Advanced Leadership",
+    focusTH: "ภาวะผู้นำขั้นสูง",
+    level: "Strong",
+    category: "Leadership",
+    image: "/softskills/Battalion Commander.webp",
+    imageAlt: "Territorial Defense Student serving as battalion commander",
+    imagePosition: "top",
+  },
+  {
+    id: 12,
+    title: "Territorial Defense Student Company Commander",
+    titleTH: "ผู้บังคับกองร้อย รด.",
+    description:
+      "Strengthened leadership, discipline, and endurance while coordinating two platoons and supervising approximately 100 cadets.",
+    descriptionTH:
+      "ฝึกภาวะผู้นำ ความอดทน และวินัย ผ่านการควบคุมดูแลกำลังพลประมาณ 100 นาย ซึ่งประกอบด้วยหมวด 1 และหมวด 2 อย่างเป็นระบบ",
+    focus: "Unit Coordination",
+    focusTH: "การประสานงานระดับหน่วย",
+    level: "Strong",
+    category: "Leadership",
+    image: "/softskills/Territorial Defense Student Company Commander.webp",
+    imageAlt: "Territorial Defense Student serving as company commander",
+    imagePosition: "top",
+  },
+  {
+    id: 13,
+    title: "Territorial Defense Student Platoon Leader",
+    titleTH: "ผู้บังคับหมวด รด.",
+    description:
+      "Earned the trust of peers and instructors to lead approximately 50 cadets, building cooperation, respect, and unity through calm leadership.",
+    descriptionTH:
+      "ได้รับความไว้วางใจจากเพื่อนและครูฝึกให้ดูแลกำลังพลประมาณ 50 นาย โดยใช้ภาวะผู้นำที่สันติและเป็นกันเอง จนเกิดความร่วมมือ ความเคารพ และความสามัคคี",
+    focus: "Trust & Unity",
+    focusTH: "ความไว้วางใจและความสามัคคี",
+    level: "Strong",
+    category: "Leadership",
+    image: "/softskills/Territorial Defense Student Platoon Leader.webp",
+    imageAlt: "Territorial Defense Student serving as platoon leader",
+    imagePosition: "top",
   },
 
   // ===========================================================================
@@ -166,7 +241,7 @@ export const softSkills: SoftSkillItem[] = [
   // Copy this block, paste it above this guide, then edit the values.
   // ===========================================================================
   // {
-  //   id: 11, // required, must be unique
+  //   id: 14, // required, must be unique
   //   title: "Time Management",
   //   titleTH: "การบริหารเวลา",
   //   description: "How this skill helps you work or build projects.",

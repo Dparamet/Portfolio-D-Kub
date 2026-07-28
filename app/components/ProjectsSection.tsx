@@ -4,11 +4,12 @@
 // Add or edit card content in data/projects.ts.
 // Edit thumbnail behavior in app/components/ProjectThumbnail.tsx.
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { FaBook, FaCodeBranch, FaExternalLinkAlt } from "react-icons/fa";
 import { projects } from "@/data/projects";
 import { useSitePreferences } from "@/app/components/SitePreferencesProvider";
 import ProjectThumbnail from "@/app/components/ProjectThumbnail";
+import { getRevealDelay } from "@/lib/motion";
 
 // ── Language colours (same as GitHub) ────────────────────────
 const LANG_COLORS: Record<string, string> = {
@@ -100,44 +101,46 @@ export default function ProjectsSection() {
       className={`scroll-mt-16 py-20 px-6 md:px-20 ${pageBg}`}
     >
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-[#e6edf3]"}`}>
-          {isThai ? "ผลงาน" : "Projects"}
-        </h2>
-        <div className="w-16 h-1 bg-sky-400 rounded mb-4" />
-        <p className={`mb-8 ${descColor}`}>
-          {isThai ? "ตัวอย่างงานที่ผมพัฒนาและกำลังทำอยู่" : "Things I've built or am currently working on."}
-        </p>
+        <div data-reveal>
+          {/* Header */}
+          <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-[#e6edf3]"}`}>
+            {isThai ? "ผลงาน" : "Projects"}
+          </h2>
+          <div className="w-16 h-1 bg-sky-400 rounded mb-4" />
+          <p className={`mb-8 ${descColor}`}>
+            {isThai ? "ตัวอย่างงานที่ผมพัฒนาและกำลังทำอยู่" : "Things I've built or am currently working on."}
+          </p>
 
-        {/* Filter tabs */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {tabs.map((tab) => (
-            <button
-              key={tab.label}
-              onClick={() => setActive(tab.label)}
-              aria-pressed={active === tab.label}
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium transition-all ${
-                active === tab.label
-                  ? isLight
-                    ? "bg-[#0969da] text-white"
-                    : "bg-[#58a6ff] text-[#0d1117]"
-                  : isLight
-                    ? "bg-white text-[#57606a] ring-1 ring-[#d0d7de] hover:ring-[#0969da]/50"
-                    : "bg-transparent text-[#8b949e] ring-1 ring-[#30363d] hover:ring-[#58a6ff]/50 hover:text-[#e6edf3]"
-              }`}
-            >
-              {label(tab.label)}
-              <span
-                className={`text-[11px] px-1.5 py-0.5 rounded-full font-semibold ${
+          {/* Filter tabs */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {tabs.map((tab) => (
+              <button
+                key={tab.label}
+                onClick={() => setActive(tab.label)}
+                aria-pressed={active === tab.label}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium transition-all ${
                   active === tab.label
-                    ? isLight ? "bg-white/25 text-white" : "bg-[#0d1117]/30 text-[#0d1117]"
-                    : isLight ? "bg-[#eaeef2] text-[#57606a]" : "bg-[#21262d] text-[#8b949e]"
+                    ? isLight
+                      ? "bg-[#0969da] text-white"
+                      : "bg-[#58a6ff] text-[#0d1117]"
+                    : isLight
+                      ? "bg-white text-[#57606a] ring-1 ring-[#d0d7de] hover:ring-[#0969da]/50"
+                      : "bg-transparent text-[#8b949e] ring-1 ring-[#30363d] hover:ring-[#58a6ff]/50 hover:text-[#e6edf3]"
                 }`}
               >
-                {tab.count}
-              </span>
-            </button>
-          ))}
+                {label(tab.label)}
+                <span
+                  className={`text-[11px] px-1.5 py-0.5 rounded-full font-semibold ${
+                    active === tab.label
+                      ? isLight ? "bg-white/25 text-white" : "bg-[#0d1117]/30 text-[#0d1117]"
+                      : isLight ? "bg-[#eaeef2] text-[#57606a]" : "bg-[#21262d] text-[#8b949e]"
+                  }`}
+                >
+                  {tab.count}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Cards grid */}
@@ -147,7 +150,7 @@ export default function ProjectsSection() {
           </div>
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((project) => {
+            {filtered.map((project, index) => {
               const lang = getPrimaryLang(project.tech);
               const langColor = lang ? (LANG_COLORS[lang] ?? "#8b949e") : null;
               const statusDark  = STATUS_DARK[project.status]  ?? STATUS_DARK["Coming Soon"];
@@ -170,7 +173,11 @@ export default function ProjectsSection() {
               return (
                 <div
                   key={project.id}
-                  className={`group flex flex-col overflow-hidden rounded-md border transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md ${cardBg} ${cardBorder}`}
+                  data-reveal
+                  style={
+                    { "--reveal-delay": getRevealDelay(index) } as CSSProperties
+                  }
+                  className={`motion-card group flex flex-col overflow-hidden rounded-md border hover:shadow-md ${cardBg} ${cardBorder}`}
                 >
                   <ProjectThumbnail project={project} isLight={isLight} />
 
