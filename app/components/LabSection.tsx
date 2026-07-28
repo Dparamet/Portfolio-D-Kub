@@ -1,12 +1,13 @@
 "use client";
 
 // UI for Soft Skill filters, card styles, and optional card images.
-// Add or edit card content in data/lab.ts.
+// Add or edit card content in data/softskills.ts.
 
-import { useState } from "react";
-import { softSkills, type SoftSkillLevel } from "@/data/lab";
+import { useState, type CSSProperties } from "react";
+import { softSkills, type SoftSkillLevel } from "@/data/softskills";
 import { useSitePreferences } from "@/app/components/SitePreferencesProvider";
 import SoftSkillThumbnail from "@/app/components/SoftSkillThumbnail";
+import { getRevealDelay } from "@/lib/motion";
 
 const categoryTH: Record<string, string> = {
   All: "ทั้งหมด",
@@ -101,43 +102,45 @@ export default function SoftSkillsSection() {
   return (
     <section id="soft-skill" className={`scroll-mt-16 py-20 px-6 md:px-20 ${isLight ? "bg-slate-50" : "bg-zinc-950"}`}>
       <div className="max-w-6xl mx-auto">
-        <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{ui.title}</h2>
-        <div className="w-16 h-1 bg-sky-400 rounded mb-4" />
-        <p className={`mb-8 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>{ui.subtitle}</p>
+        <div data-reveal>
+          <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{ui.title}</h2>
+          <div className="w-16 h-1 bg-sky-400 rounded mb-4" />
+          <p className={`mb-8 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>{ui.subtitle}</p>
 
-        {/* Filter tabs */}
-        <div className="flex flex-wrap gap-2 mb-10">
-          {tabs.map((tab) => (
-            <button
-              key={tab.label}
-              onClick={() => setActive(tab.label)}
-              aria-pressed={active === tab.label}
-              className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                active === tab.label
-                  ? isLight
-                    ? "bg-sky-600 text-white shadow-md shadow-sky-300/40"
-                    : "bg-sky-400 text-black shadow-md shadow-sky-900/30"
-                  : isLight
-                    ? "bg-white text-slate-700 border border-slate-300 hover:border-sky-500"
-                    : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:border-sky-400/70"
-              }`}
-            >
-              <span>{getCategoryLabel(tab.label)}</span>
-              <span
-                className={`text-[11px] px-1.5 py-0.5 rounded-full ${
+          {/* Filter tabs */}
+          <div className="flex flex-wrap gap-2 mb-10">
+            {tabs.map((tab) => (
+              <button
+                key={tab.label}
+                onClick={() => setActive(tab.label)}
+                aria-pressed={active === tab.label}
+                className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   active === tab.label
                     ? isLight
-                      ? "bg-white/25 text-white"
-                      : "bg-black/20 text-black"
+                      ? "bg-sky-600 text-white shadow-md shadow-sky-300/40"
+                      : "bg-sky-400 text-black shadow-md shadow-sky-900/30"
                     : isLight
-                      ? "bg-slate-100 text-sky-600"
-                      : "bg-zinc-800 text-sky-300"
+                      ? "bg-white text-slate-700 border border-slate-300 hover:border-sky-500"
+                      : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:border-sky-400/70"
                 }`}
               >
-                {tab.count}
-              </span>
-            </button>
-          ))}
+                <span>{getCategoryLabel(tab.label)}</span>
+                <span
+                  className={`text-[11px] px-1.5 py-0.5 rounded-full ${
+                    active === tab.label
+                      ? isLight
+                        ? "bg-white/25 text-white"
+                        : "bg-black/20 text-black"
+                      : isLight
+                        ? "bg-slate-100 text-sky-600"
+                        : "bg-zinc-800 text-sky-300"
+                  }`}
+                >
+                  {tab.count}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Cards */}
@@ -153,7 +156,7 @@ export default function SoftSkillsSection() {
           </div>
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((item) => {
+            {filtered.map((item, index) => {
               const colors =
                 categoryColors[item.category] ?? categoryColors.default;
               const itemTitle = isThai ? item.titleTH : item.title;
@@ -165,7 +168,11 @@ export default function SoftSkillsSection() {
               return (
                 <div
                   key={item.id}
-                  className={`group flex flex-col overflow-hidden rounded-md border shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md ${
+                  data-reveal
+                  style={
+                    { "--reveal-delay": getRevealDelay(index) } as CSSProperties
+                  }
+                  className={`motion-card group flex flex-col overflow-hidden rounded-md border shadow-sm hover:shadow-md ${
                     isLight ? "bg-white border-slate-200" : "bg-zinc-900"
                   } ${colors.card}`}
                 >

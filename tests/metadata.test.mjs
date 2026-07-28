@@ -50,3 +50,19 @@ test("social metadata resolves against the production portfolio URL", () => {
   assert.match(metadata.description, /Paramet Dennis Hoke Arrington IV/);
   assert.doesNotMatch(metadata.description, /D Dparamet/);
 });
+
+test("site branding uses the optimized D logo", () => {
+  const metadata = loadMetadata();
+  const iconFile = path.join(projectRoot, "app", "icon.png");
+  const icon = fs.readFileSync(iconFile);
+
+  assert.equal(metadata.icons.icon, "/icon.png");
+  assert.equal(metadata.icons.shortcut, "/icon.png");
+  assert.equal(metadata.icons.apple, "/icon.png");
+  assert.deepEqual(metadata.openGraph.images, ["/icon.png"]);
+  assert.deepEqual(metadata.twitter.images, ["/icon.png"]);
+  assert.deepEqual([...icon.subarray(0, 8)], [
+    0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
+  ]);
+  assert.ok(icon.length <= 100_000, "logo should stay below 100 KB");
+});

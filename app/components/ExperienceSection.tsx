@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { FaBriefcase, FaCode, FaExternalLinkAlt, FaStore } from "react-icons/fa";
 
 import { useSitePreferences } from "@/app/components/SitePreferencesProvider";
@@ -7,6 +8,7 @@ import {
   experiences,
   type ExperienceCategory,
 } from "@/data/experiences";
+import { getRevealDelay } from "@/lib/motion";
 
 const categoryIcons: Record<ExperienceCategory, React.ReactNode> = {
   Leadership: <FaBriefcase aria-hidden="true" />,
@@ -41,21 +43,23 @@ export default function ExperienceSection() {
       }`}
     >
       <div className="mx-auto max-w-6xl">
-        <h2
-          className={`mb-2 text-4xl font-bold ${
-            isLight ? "text-slate-900" : "text-zinc-100"
-          }`}
-        >
-          {text.title}
-        </h2>
-        <div className="mb-4 h-1 w-16 rounded bg-sky-400" />
-        <p
-          className={`mb-10 max-w-3xl ${
-            isLight ? "text-slate-600" : "text-zinc-300"
-          }`}
-        >
-          {text.subtitle}
-        </p>
+        <div data-reveal>
+          <h2
+            className={`mb-2 text-4xl font-bold ${
+              isLight ? "text-slate-900" : "text-zinc-100"
+            }`}
+          >
+            {text.title}
+          </h2>
+          <div className="mb-4 h-1 w-16 rounded bg-sky-400" />
+          <p
+            className={`mb-10 max-w-3xl ${
+              isLight ? "text-slate-600" : "text-zinc-300"
+            }`}
+          >
+            {text.subtitle}
+          </p>
+        </div>
 
         <div className="relative">
           <div
@@ -66,7 +70,7 @@ export default function ExperienceSection() {
           />
 
           <ol className="space-y-5" aria-label={text.title}>
-            {experiences.map((item) => {
+            {experiences.map((item, index) => {
             const organization = isThai
               ? item.organizationTH
               : item.organization;
@@ -77,7 +81,14 @@ export default function ExperienceSection() {
               : item.description;
 
             return (
-              <li key={item.id} className="relative pl-12 md:pl-20">
+              <li
+                key={item.id}
+                className="relative pl-12 md:pl-20"
+                data-reveal
+                style={
+                  { "--reveal-delay": getRevealDelay(index) } as CSSProperties
+                }
+              >
                 <span
                   aria-hidden="true"
                   className={`absolute left-0 top-5 z-10 flex h-8 w-8 items-center justify-center rounded-md border text-xs md:left-1 md:h-11 md:w-11 md:text-sm ${
@@ -90,7 +101,7 @@ export default function ExperienceSection() {
                 </span>
 
                 <article
-                  className={`rounded-md border p-5 transition-colors md:p-6 ${
+                  className={`motion-card rounded-md border p-5 md:p-6 ${
                     isLight
                       ? "border-slate-200 bg-slate-50 hover:border-sky-300"
                       : "border-zinc-800 bg-zinc-900 hover:border-sky-400/50"
