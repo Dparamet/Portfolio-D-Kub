@@ -44,7 +44,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Communication",
     image: "/profile.jpg",
     imageAlt: "Dparamet practicing continuous self improvement",
-    imagePosition: "top",
+    imagePosition: "center",
   },
   {
     id: 2,
@@ -60,7 +60,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Teamwork",
     image: "/profile.jpg",
     imageAlt: "Dparamet practicing continuous self improvement",
-    imagePosition: "top",
+    imagePosition: "center",
   },
   {
     id: 3,
@@ -76,7 +76,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Problem Solving",
     image: "/profile.jpg",
     imageAlt: "Dparamet practicing continuous self improvement",
-    imagePosition: "top",
+    imagePosition: "center",
   },
   {
     id: 4,
@@ -92,7 +92,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Leadership",
     image: "/profile.jpg",
     imageAlt: "Dparamet practicing continuous self improvement",
-    imagePosition: "top",
+    imagePosition: "center",
   },
   {
     id: 5,
@@ -108,7 +108,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Teamwork",
     image: "/profile.jpg",
     imageAlt: "Dparamet practicing continuous self improvement",
-    imagePosition: "top",
+    imagePosition: "center",
   },
   {
     id: 6,
@@ -123,7 +123,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Hobby",
     image: "/profile.jpg",
     imageAlt: "Dparamet practicing continuous self improvement",
-    imagePosition: "top",
+    imagePosition: "center",
   },
   {
     id: 7,
@@ -138,7 +138,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Hobby",
     image: "/profile.jpg",
     imageAlt: "Dparamet practicing continuous self improvement",
-    imagePosition: "top",
+    imagePosition: "center",
   },
   {
     id: 8,
@@ -153,7 +153,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Hobby",
     image: "/profile.jpg",
     imageAlt: "Dparamet practicing continuous self improvement",
-    imagePosition: "top",
+    imagePosition: "center",
   },
   {
     id: 9,
@@ -169,7 +169,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Leadership",
     image: "/profile.jpg",
     imageAlt: "Dparamet practicing continuous self improvement",
-    imagePosition: "top",
+    imagePosition: "center",
   },
   {
     id: 10,
@@ -185,7 +185,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Communication",
     image: "/profile.jpg",
     imageAlt: "Dparamet practicing continuous self improvement",
-    imagePosition: "top",
+    imagePosition: "center",
   },
   {
     id: 11,
@@ -201,7 +201,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Leadership",
     image: "/softskills/Battalion Commander.webp",
     imageAlt: "Territorial Defense Student serving as battalion commander",
-    imagePosition: "top",
+    imagePosition: "center",
   },
   {
     id: 12,
@@ -217,7 +217,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Leadership",
     image: "/softskills/Territorial Defense Student Company Commander.webp",
     imageAlt: "Territorial Defense Student serving as company commander",
-    imagePosition: "top",
+    imagePosition: "center",
   },
   {
     id: 13,
@@ -233,7 +233,7 @@ export const softSkills: SoftSkillItem[] = [
     category: "Leadership",
     image: "/softskills/Territorial Defense Student Platoon Leader.webp",
     imageAlt: "Territorial Defense Student serving as platoon leader",
-    imagePosition: "top",
+    imagePosition: "center",
   },
 
   // ===========================================================================
@@ -254,7 +254,7 @@ export const softSkills: SoftSkillItem[] = [
   //   // Optional image fields — use all image fields together
   //   image: "/soft-skills/time-management.webp",
   //   imageAlt: "Planning tasks and priorities on a desk",
-  //   imagePosition: "top", // "top" | "center"
+  //   imagePosition: "center", // "top" | "center"
   //
   //   // Optional external URL
   //   link: "https://example.com",
