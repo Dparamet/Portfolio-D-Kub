@@ -8,6 +8,12 @@ import { fileURLToPath } from "node:url";
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(currentDirectory, "..");
 const softSkillsFile = path.join(projectRoot, "data", "softskills.ts");
+const thumbnailFile = path.join(
+  projectRoot,
+  "app",
+  "components",
+  "SoftSkillThumbnail.tsx",
+);
 
 function loadSoftSkills() {
   const source = fs.readFileSync(softSkillsFile, "utf8");
@@ -88,7 +94,7 @@ test("soft-skill photos use accessible local static assets", () => {
   }
 });
 
-test("soft-skill cards 1-10 use the profile photo aligned to the top", () => {
+test("soft-skill cards 1-10 use the profile photo centered in the frame", () => {
   const softSkills = loadSoftSkills();
 
   for (const item of softSkills.filter(({ id }) => id <= 10)) {
@@ -98,7 +104,7 @@ test("soft-skill cards 1-10 use the profile photo aligned to the top", () => {
       "Dparamet practicing continuous self improvement",
       `${item.title}: imageAlt`,
     );
-    assert.equal(item.imagePosition, "top", `${item.title}: imagePosition`);
+    assert.equal(item.imagePosition, "center", `${item.title}: imagePosition`);
   }
 });
 
@@ -138,6 +144,14 @@ test("territorial defense leadership cards use approved content and images", () 
     assert.match(item.descriptionTH, new RegExp(requirement.personnel));
     assert.equal(item.level, "Strong");
     assert.equal(item.category, "Leadership");
-    assert.equal(item.imagePosition, "top");
+    assert.equal(item.imagePosition, "center");
   }
+});
+
+test("soft-skill thumbnails center the complete image inside the frame", () => {
+  const thumbnailSource = fs.readFileSync(thumbnailFile, "utf8");
+
+  assert.match(thumbnailSource, /object-contain/);
+  assert.match(thumbnailSource, /object-center/);
+  assert.match(thumbnailSource, /p-3/);
 });

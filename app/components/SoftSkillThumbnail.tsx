@@ -54,7 +54,7 @@ export default function SoftSkillThumbnail({
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             unoptimized={item.image.toLowerCase().endsWith(".svg")}
-            className={`object-cover transition-transform duration-300 group-hover:scale-[1.02] ${
+            className={`object-contain p-3 transition-transform duration-300 group-hover:scale-[1.02] ${
               item.imagePosition === "top" ? "object-top" : "object-center"
             }`}
           />
