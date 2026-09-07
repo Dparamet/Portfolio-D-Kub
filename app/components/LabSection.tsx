@@ -15,6 +15,7 @@ const categoryTH: Record<string, string> = {
   Teamwork: "การทำงานเป็นทีม",
   "Problem Solving": "การแก้ปัญหา",
   Leadership: "ภาวะผู้นำ",
+  Competition: "การแข่งขัน",
   Hobby: "งานอดิเรก",
 };
 
@@ -52,6 +53,10 @@ const categoryColors: Record<string, { card: string; tag: string }> = {
   Leadership: {
     card: "border-indigo-500/30 hover:border-indigo-400/70",
     tag: "bg-indigo-500/15 text-indigo-200 border-indigo-500/35",
+  },
+  Competition: {
+    card: "border-amber-500/30 hover:border-amber-400/70",
+    tag: "bg-amber-500/15 text-amber-200 border-amber-500/35",
   },
   Hobby: {
     card: "border-pink-500/30 hover:border-pink-400/70",

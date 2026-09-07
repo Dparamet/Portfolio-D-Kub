@@ -11,6 +11,7 @@ export type UpdateTag =
   | "Learning"
   | "Thesis"
   | "Leadership"
+  | "Competition"
   | "Update";
 
 export interface Update {
@@ -27,6 +28,24 @@ export interface Update {
 // EDIT UPDATES HERE — newest first
 // -----------------------------------------------------------------------------
 export const updates: Update[] = [
+  {
+    id: 9,
+    date: "Sep 2026",
+    dateTH: "ก.ย. 2569",
+    title: "Team CARELINK — Top 4 at INNOBIZ IGNITE business plan competition",
+    titleTH: "ทีม CARELINK ได้ Top 4 การประกวดแผนธุรกิจ INNOBIZ IGNITE",
+    tag: "Competition",
+  },
+  {
+    id: 8,
+    date: "Jul 2026",
+    dateTH: "ก.ค. 2569",
+    title:
+      "Regional cybersecurity finalist at National Skills Competition #31, on to the national final",
+    titleTH:
+      "เป็นตัวแทนภาคอีสานสาย Cybersecurity ในการแข่งขันฝีมือแรงงานแห่งชาติ ครั้งที่ 31 เข้าชิงระดับประเทศ",
+    tag: "Competition",
+  },
   {
     id: 7,
     date: "2026",

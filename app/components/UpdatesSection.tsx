@@ -15,6 +15,7 @@ const tagTH: Record<UpdateTag, string> = {
   Learning: "กำลังเรียน",
   Thesis: "ปริญญานิพนธ์",
   Leadership: "ภาวะผู้นำ",
+  Competition: "การแข่งขัน",
   Update: "อัปเดต",
 };
 
@@ -24,6 +25,7 @@ const tagStyle: Record<UpdateTag, { light: string; dark: string }> = {
   Learning: { light: "bg-violet-50 text-violet-700 ring-violet-300", dark: "bg-violet-500/10 text-violet-300 ring-violet-400/30" },
   Thesis: { light: "bg-amber-50 text-amber-700 ring-amber-300", dark: "bg-amber-500/10 text-amber-300 ring-amber-400/30" },
   Leadership: { light: "bg-indigo-50 text-indigo-700 ring-indigo-300", dark: "bg-indigo-500/10 text-indigo-300 ring-indigo-400/30" },
+  Competition: { light: "bg-amber-50 text-amber-700 ring-amber-300", dark: "bg-amber-500/10 text-amber-300 ring-amber-400/30" },
   Update: { light: "bg-slate-100 text-slate-600 ring-slate-300", dark: "bg-zinc-700/40 text-zinc-300 ring-zinc-600" },
 };
 

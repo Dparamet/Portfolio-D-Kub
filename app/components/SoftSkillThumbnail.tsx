@@ -24,6 +24,7 @@ const categoryGradients: Record<string, string> = {
   Teamwork: "from-cyan-500 to-teal-700",
   "Problem Solving": "from-blue-600 to-slate-800",
   Leadership: "from-indigo-500 to-blue-800",
+  Competition: "from-amber-500 to-orange-700",
   Hobby: "from-pink-500 to-rose-700",
   default: "from-slate-600 to-zinc-800",
 };

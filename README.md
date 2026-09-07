@@ -58,7 +58,9 @@ portfolio/
 │  └─ contactValidation.ts  # Validate และ normalize ข้อมูล Contact form
 ├─ public/
 │  ├─ profile.jpg     # รูปโปรไฟล์ (วางที่นี่แล้ว avatarImage จะแสดงอัตโนมัติ)
-│  └─ projects/       # รูปตัวอย่างผลงาน (SVG, PNG, JPG, WebP, AVIF หรือ GIF)
+│  ├─ projects/       # รูปตัวอย่างผลงาน (SVG, PNG, JPG, WebP, AVIF หรือ GIF)
+│  ├─ softskills/     # รูปการ์ด soft skill / ภาวะผู้นำ
+│  └─ competitions/   # รูปการ์ดหมวด Competition + กิจกรรม
 ├─ tests/             # Regression tests: content, security, metadata, accessibility
 ├─ next.config.ts
 ├─ package.json
