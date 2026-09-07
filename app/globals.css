@@ -12,10 +12,10 @@
   --grad-c: #818cf8;
 
   /* Ambient background layers */
-  --grid-dot: rgba(148, 163, 184, 0.16);
-  --aurora-1: rgba(56, 189, 248, 0.20);
-  --aurora-2: rgba(45, 212, 191, 0.13);
-  --aurora-3: rgba(129, 140, 248, 0.12);
+  --grid-dot: rgba(148, 163, 184, 0.14);
+  --aurora-1: rgba(56, 189, 248, 0.16);
+  --aurora-2: rgba(45, 212, 191, 0.10);
+  --aurora-3: rgba(129, 140, 248, 0.10);
 }
 
 :root[data-theme="light"] {
@@ -28,10 +28,10 @@
   --grad-b: #0891b2;
   --grad-c: #4f46e5;
 
-  --grid-dot: rgba(51, 65, 85, 0.10);
-  --aurora-1: rgba(56, 189, 248, 0.16);
-  --aurora-2: rgba(45, 212, 191, 0.10);
-  --aurora-3: rgba(129, 140, 248, 0.08);
+  --grid-dot: rgba(51, 65, 85, 0.09);
+  --aurora-1: rgba(56, 189, 248, 0.13);
+  --aurora-2: rgba(45, 212, 191, 0.08);
+  --aurora-3: rgba(129, 140, 248, 0.07);
 }
 
 * {
@@ -52,8 +52,22 @@ body {
   background: var(--ui-bg);
 }
 
-/* Dot-grid texture, fading out toward the bottom of the viewport */
+/* One static, fixed ambient layer: soft colour wash + dot-grid texture.
+   No blur, no animation, no background-attachment — a single cheap paint. */
 body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(55vw 45vh at 12% 0%, var(--aurora-1), transparent 70%),
+    radial-gradient(48vw 42vh at 92% 4%, var(--aurora-2), transparent 70%),
+    radial-gradient(42vw 42vh at 78% 100%, var(--aurora-3), transparent 72%);
+}
+
+/* Dot-grid texture, fading out toward the bottom of the viewport */
+body::after {
   content: "";
   position: fixed;
   inset: 0;
@@ -61,32 +75,8 @@ body::before {
   pointer-events: none;
   background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
   background-size: 34px 34px;
-  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 10%, transparent 78%);
-  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 10%, transparent 78%);
-}
-
-/* Slow-drifting aurora glow */
-body::after {
-  content: "";
-  position: fixed;
-  inset: -25%;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(38vw 38vw at 12% 18%, var(--aurora-1), transparent 60%),
-    radial-gradient(34vw 34vw at 88% 12%, var(--aurora-2), transparent 60%),
-    radial-gradient(30vw 30vw at 72% 82%, var(--aurora-3), transparent 62%);
-  filter: blur(28px);
-  animation: aurora-drift 30s ease-in-out infinite alternate;
-}
-
-@keyframes aurora-drift {
-  from {
-    transform: translate3d(-2%, -1%, 0) scale(1);
-  }
-  to {
-    transform: translate3d(3%, 2%, 0) scale(1.08);
-  }
+  -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 10%, transparent 78%);
+  mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 10%, transparent 78%);
 }
 
 ::selection {
@@ -145,105 +135,61 @@ textarea:focus-visible {
   color: var(--grad-a);
 }
 
-/* Live "open to work" dot with an expanding ring */
+/* Static "open to work" dot */
 .status-dot {
-  position: relative;
   display: inline-block;
   width: 8px;
   height: 8px;
   border-radius: 999px;
   background: #34d399;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.18);
 }
 
-.status-dot::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  animation: status-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-@keyframes status-ping {
-  0% {
-    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55);
-  }
-  100% {
-    box-shadow: 0 0 0 9px rgba(52, 211, 153, 0);
-  }
-}
-
-/* ── Avatar conic ring + float ─────────────────────────── */
+/* Static gradient ring around the avatar (no animation) */
 .avatar-ring::before {
   content: "";
   position: absolute;
-  inset: -12px;
+  inset: -10px;
   border-radius: 9999px;
-  background: conic-gradient(
-    from 0deg,
-    var(--grad-a),
-    var(--grad-c),
-    var(--grad-b),
-    var(--grad-a)
-  );
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
-  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
-  animation: spin-slow 16s linear infinite;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--grad-a), var(--grad-c));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 }
 
-@keyframes spin-slow {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-float {
-  animation: float-y 6s ease-in-out infinite alternate;
-}
-
-@keyframes float-y {
-  from {
-    transform: translateY(-7px);
-  }
-  to {
-    transform: translateY(7px);
-  }
-}
-
-/* ── Scroll reveal ─────────────────────────────────────── */
+/* ── Scroll reveal (opacity + translate only) ──────────── */
 html[data-motion-ready="true"] [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 22px, 0) scale(0.985);
-  filter: blur(6px);
+  transform: translate3d(0, 16px, 0);
   transition:
-    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 620ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 620ms ease;
+    opacity 480ms ease,
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
 }
 
 html[data-motion-ready="true"] [data-reveal].is-visible {
   opacity: 1;
-  transform: translate3d(0, 0, 0);
-  filter: blur(0);
-  will-change: auto;
+  transform: none;
 }
 
 .motion-card {
   transition:
-    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 360ms ease,
-    border-color 360ms ease;
+    transform 260ms ease,
+    box-shadow 260ms ease,
+    border-color 260ms ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .motion-card:hover {
-    transform: translateY(-6px) scale(1.01);
+    transform: translateY(-4px);
   }
 }
 
 .motion-card:focus-within {
-  transform: translateY(-6px) scale(1.01);
+  transform: translateY(-4px);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -257,21 +203,9 @@ html[data-motion-ready="true"] [data-reveal].is-visible {
     transition-delay: 0ms !important;
   }
 
-  body::after,
-  .avatar-ring::before,
-  .animate-float,
-  .status-dot::after {
-    animation: none !important;
-  }
-
-  .animate-float {
-    transform: none !important;
-  }
-
   html[data-motion-ready="true"] [data-reveal] {
     opacity: 1;
     transform: none;
-    filter: none;
   }
 
   .motion-card:hover,

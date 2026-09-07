@@ -9,8 +9,8 @@ export default function PreferenceControls() {
   const isThai = language === "th";
 
   const panelClass = isLight
-    ? "bg-white/95 border-slate-200 text-slate-700 shadow-slate-300/40"
-    : "bg-zinc-900/90 border-zinc-700 text-zinc-200 shadow-black/40";
+    ? "bg-white border-slate-200 text-slate-700 shadow-slate-300/40"
+    : "bg-zinc-900 border-zinc-700 text-zinc-200 shadow-black/40";
 
   const buttonClass = isLight
     ? "bg-slate-100 border-slate-300 text-slate-700 hover:border-sky-500 hover:text-sky-600"
@@ -18,7 +18,7 @@ export default function PreferenceControls() {
 
   return (
     <div className="fixed top-4 right-4 z-[60]">
-      <div className={`flex items-center gap-2 rounded-2xl border p-2 backdrop-blur-md shadow-lg ${panelClass}`}>
+      <div className={`flex items-center gap-2 rounded-2xl border p-2 shadow-lg ${panelClass}`}>
         <button
           type="button"
           onClick={toggleLanguage}

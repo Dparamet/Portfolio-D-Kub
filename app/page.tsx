@@ -381,11 +381,7 @@ export default function HomePage() {
               { "--reveal-delay": getRevealDelay(1) } as CSSProperties
             }
           >
-            <div className="avatar-ring animate-float relative">
-              <div
-                aria-hidden="true"
-                className="absolute -inset-6 rounded-full bg-gradient-to-br from-sky-500/30 to-indigo-500/20 blur-2xl"
-              />
+            <div className="avatar-ring relative">
               <div
                 className={`relative w-60 h-60 rounded-full overflow-hidden flex items-center justify-center shadow-2xl ${
                   isLight

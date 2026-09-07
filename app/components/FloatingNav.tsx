@@ -127,8 +127,8 @@ export default function FloatingNav() {
           ? "bg-sky-500 text-white border-sky-400 shadow-sky-400/30"
           : "bg-sky-500 text-black border-sky-400 shadow-sky-900/50"
         : isLight
-          ? "bg-white/95 backdrop-blur-sm border-slate-200 text-slate-600 hover:bg-sky-500 hover:text-white hover:border-sky-400"
-          : "bg-zinc-900/90 backdrop-blur-sm border-zinc-700 text-zinc-300 hover:bg-sky-500 hover:text-black hover:border-sky-400",
+          ? "bg-white border-slate-200 text-slate-600 hover:bg-sky-500 hover:text-white hover:border-sky-400"
+          : "bg-zinc-900 border-zinc-700 text-zinc-300 hover:bg-sky-500 hover:text-black hover:border-sky-400",
     ].join(" ");
 
   return (
@@ -166,10 +166,10 @@ export default function FloatingNav() {
       {/* Mobile: bottom floating bar */}
       <nav className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
         <div
-          className={`flex items-center gap-2 p-2 rounded-2xl border backdrop-blur-md shadow-xl ${
+          className={`flex items-center gap-2 p-2 rounded-2xl border shadow-xl ${
             isLight
-              ? "border-slate-200 bg-white/95 shadow-slate-300/40"
-              : "border-zinc-700 bg-black/90 shadow-sky-900/30"
+              ? "border-slate-200 bg-white shadow-slate-300/40"
+              : "border-zinc-700 bg-black shadow-sky-900/30"
           }`}
         >
           {navItems.map((item) => {

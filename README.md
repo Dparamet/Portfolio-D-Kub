@@ -14,7 +14,7 @@ Modern portfolio website built with **Next.js (App Router)**, **TypeScript**, an
 - 🔍 Filter โปรเจกต์ตามหมวดหมู่ (Web, IoT, Python, Java …)
 - 📰 Updates feed — สิ่งที่กำลังทำ เรียน และเพิ่งส่งมอบ (`data/updates.ts`)
 - 🔗 Social links: GitHub, LinkedIn, Facebook, Instagram, email, phone
-- 🎞️ Ambient UI — dot-grid texture + slow aurora glow, ทั้งหมด disable เมื่อ `prefers-reduced-motion`
+- 🎞️ Ambient UI — static dot-grid texture + soft colour wash (ไม่มี animation, เบาบนทุกเครื่อง)
 - 📨 Contact form ส่งข้อความผ่าน **EmailJS** (โหลด lazy — ไม่กระทบ initial bundle)
 - 📦 แยกข้อมูลคอนเทนต์ไว้ใน `data/` เพื่อแก้ไขง่าย
 
@@ -190,13 +190,15 @@ npm run build
 
 ### Motion System
 
-- ทุก section ใช้ `data-reveal` เพื่อแสดงผลแบบ soft fade + slide + blur-in เล็กน้อย
+- ทุก section ใช้ `data-reveal` เพื่อแสดงผลแบบ soft fade + slide (opacity + translate เท่านั้น — ไม่มี blur/scale)
 - รายการ card ใช้ `getRevealDelay(index)` จาก `lib/motion.ts` เพื่อ stagger ทีละ `80ms` และจำกัดสูงสุด `400ms`
 - เพิ่ม class `motion-card` ให้ card ใหม่ เพื่อใช้ gentle lift ตอน hover/focus
 - `MotionObserver.tsx` ใช้ observer กลางชุดเดียว และตรวจ card ใหม่หลังเปลี่ยน filter
-- `globals.css` มี ambient layers (`body::before` dot-grid, `body::after` aurora), scroll-progress bar และ helper: `.text-gradient`, `.accent-bar`, `.section-index`, `.avatar-ring`, `.animate-float`, `.status-dot`
+- `globals.css` มี ambient layers แบบ **static** 2 ชั้น (`body::before` colour wash, `body::after` dot-grid) — ไม่มี blur / animation / `background-attachment: fixed` เพื่อให้เบาบนเครื่องสเปกต่ำ
+- helper: `.text-gradient`, `.accent-bar`, `.section-index`, `.status-dot`, `.avatar-ring` (gradient ring แบบ static), `.scroll-progress`
 - accent gradient คุมด้วย CSS variables (`--grad-a/b/c`) แยกค่าตามธีม light/dark
-- ผู้ใช้ที่ตั้งค่า `prefers-reduced-motion: reduce` จะเห็นเนื้อหาทันทีโดยไม่มีการเคลื่อนไหว (aurora / float / ring หยุดทั้งหมด)
+- ไม่มี animation ที่วนตลอด (loop) — เอฟเฟกต์ทั้งหมดเกิดเฉพาะตอน reveal / hover / scroll
+- ผู้ใช้ที่ตั้งค่า `prefers-reduced-motion: reduce` จะเห็นเนื้อหาทันทีโดยไม่มีการเคลื่อนไหว
 
 ### เปลี่ยนรูปโปรไฟล์
 
