@@ -55,7 +55,7 @@ export const experiences: Experience[] = [
       "นำทีมพัฒนา Landing Page ตั้งแต่ Figma จนเปิดใช้งานจริง เชื่อมต่อ Supabase CRM และกำหนด Git Workflow เพื่อเพิ่มคุณภาพและ Conversion",
     skills: ["Full-Stack", "Supabase CRM", "Figma", "Git"],
     category: "Development",
-    link: "https://landing-page-trp-powers-plus.vercel.app/",
+    link: "https://trppowersplus.com/",
   },
   {
     id: 3,

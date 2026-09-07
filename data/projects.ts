@@ -385,7 +385,7 @@ export const projects: Project[] = [
     image: "/projects/trp.webp",
     imageAlt: "หน้า Landing Page ของ TRP Powers Plus",
     gradient: "from-cyan-600 to-blue-800",
-    link: "https://landing-page-trp-powers-plus.vercel.app/",
+    link: "https://trppowersplus.com/",
   },
 
   // ===========================================================================

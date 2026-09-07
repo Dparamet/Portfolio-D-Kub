@@ -104,7 +104,7 @@ test("featured projects use the provided previews and TRP fallback link", () => 
   assert.equal(trp.image, "/projects/trp.webp");
   assert.equal(
     trp.link,
-    "https://landing-page-trp-powers-plus.vercel.app/",
+    "https://trppowersplus.com/",
   );
 });
 

@@ -67,7 +67,7 @@ export const updates: Update[] = [
     title: "Delivered the TRP Powers Plus landing page to production",
     titleTH: "ส่งมอบ Landing Page ให้ TRP Powers Plus ขึ้นใช้งานจริง",
     tag: "Launch",
-    link: "https://landing-page-trp-powers-plus.vercel.app/",
+    link: "https://trppowersplus.com/",
   },
   {
     id: 2,

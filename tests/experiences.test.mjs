@@ -59,6 +59,6 @@ test("TRP experience uses the working fallback website", () => {
 
   assert.equal(
     trp.link,
-    "https://landing-page-trp-powers-plus.vercel.app/",
+    "https://trppowersplus.com/",
   );
 });
