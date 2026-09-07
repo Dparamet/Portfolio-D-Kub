@@ -44,5 +44,8 @@ next-env.d.ts
 # local design preview workspace
 /.superpowers/
 
+# scratch / temp working files
+/tmp/
+
 # original high-resolution media kept outside the deployed public folder
 /.source-assets/

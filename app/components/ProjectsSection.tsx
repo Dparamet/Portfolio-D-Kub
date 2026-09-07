@@ -83,7 +83,7 @@ export default function ProjectsSection() {
   const label = (key: string) => (isThai ? (categoryTH[key] ?? key) : key);
 
   // ── Section & card colours (GitHub palette) ───────────────
-  const pageBg   = isLight ? "bg-[#f6f8fa]"  : "bg-[#0d1117]";
+  const pageBg   = isLight ? "bg-slate-50"   : "bg-zinc-950";
   const cardBg   = isLight ? "bg-white"       : "bg-[#161b22]";
   const cardBorder = isLight ? "border-[#d0d7de] hover:border-[#0969da]/40" : "border-[#30363d] hover:border-[#58a6ff]/40";
   const nameColor  = isLight ? "text-[#0969da]" : "text-[#58a6ff]";
@@ -103,10 +103,11 @@ export default function ProjectsSection() {
       <div className="max-w-6xl mx-auto">
         <div data-reveal>
           {/* Header */}
-          <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-[#e6edf3]"}`}>
+          <p className="section-index mb-1">04 · {isThai ? "ผลงาน" : "PROJECTS"}</p>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-3 ${isLight ? "text-slate-900" : "text-[#e6edf3]"}`}>
             {isThai ? "ผลงาน" : "Projects"}
           </h2>
-          <div className="w-16 h-1 bg-sky-400 rounded mb-4" />
+          <div className="accent-bar mb-4" />
           <p className={`mb-8 ${descColor}`}>
             {isThai ? "ตัวอย่างงานที่ผมพัฒนาและกำลังทำอยู่" : "Things I've built or am currently working on."}
           </p>

@@ -44,14 +44,15 @@ export default function ExperienceSection() {
     >
       <div className="mx-auto max-w-6xl">
         <div data-reveal>
+          <p className="section-index mb-1">03 · {text.title.toUpperCase()}</p>
           <h2
-            className={`mb-2 text-4xl font-bold ${
+            className={`mb-3 text-4xl font-bold md:text-5xl ${
               isLight ? "text-slate-900" : "text-zinc-100"
             }`}
           >
             {text.title}
           </h2>
-          <div className="mb-4 h-1 w-16 rounded bg-sky-400" />
+          <div className="accent-bar mb-4" />
           <p
             className={`mb-10 max-w-3xl ${
               isLight ? "text-slate-600" : "text-zinc-300"

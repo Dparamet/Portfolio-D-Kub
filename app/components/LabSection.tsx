@@ -103,8 +103,9 @@ export default function SoftSkillsSection() {
     <section id="soft-skill" className={`scroll-mt-16 py-20 px-6 md:px-20 ${isLight ? "bg-slate-50" : "bg-zinc-950"}`}>
       <div className="max-w-6xl mx-auto">
         <div data-reveal>
-          <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{ui.title}</h2>
-          <div className="w-16 h-1 bg-sky-400 rounded mb-4" />
+          <p className="section-index mb-1">05 · {ui.title.toUpperCase()}</p>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-3 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{ui.title}</h2>
+          <div className="accent-bar mb-4" />
           <p className={`mb-8 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>{ui.subtitle}</p>
 
           {/* Filter tabs */}

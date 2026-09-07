@@ -61,6 +61,15 @@ const navItems: NavItem[] = [
     ),
   },
   {
+    href: "#updates",
+    label: { en: "Updates", th: "อัปเดต" },
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+        <path fillRule="evenodd" d="M5.25 2.25a3 3 0 0 0-3 3v4.318a3 3 0 0 0 .879 2.121l9.58 9.581c.92.92 2.39.92 3.31 0l4.94-4.94c.92-.92.92-2.39 0-3.31L14.37 3.129A3 3 0 0 0 12.25 2.25H5.25Zm3.75 4.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z" clipRule="evenodd" />
+      </svg>
+    ),
+  },
+  {
     href: "#contact",
     label: { en: "Contact", th: "ติดต่อ" },
     icon: (

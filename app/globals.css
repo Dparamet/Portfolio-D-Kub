@@ -5,6 +5,17 @@
   --ui-text: #f3f4f6;
   --ui-ring: #7dd3fc;
   --ui-selection-bg: #0c4a6e;
+
+  /* Accent gradient — used by text, bars, rings */
+  --grad-a: #38bdf8;
+  --grad-b: #22d3ee;
+  --grad-c: #818cf8;
+
+  /* Ambient background layers */
+  --grid-dot: rgba(148, 163, 184, 0.16);
+  --aurora-1: rgba(56, 189, 248, 0.20);
+  --aurora-2: rgba(45, 212, 191, 0.13);
+  --aurora-3: rgba(129, 140, 248, 0.12);
 }
 
 :root[data-theme="light"] {
@@ -12,6 +23,15 @@
   --ui-text: #0f172a;
   --ui-ring: #0ea5e9;
   --ui-selection-bg: #bae6fd;
+
+  --grad-a: #0284c7;
+  --grad-b: #0891b2;
+  --grad-c: #4f46e5;
+
+  --grid-dot: rgba(51, 65, 85, 0.10);
+  --aurora-1: rgba(56, 189, 248, 0.16);
+  --aurora-2: rgba(45, 212, 191, 0.10);
+  --aurora-3: rgba(129, 140, 248, 0.08);
 }
 
 * {
@@ -26,25 +46,47 @@ body {
 body {
   margin: 0;
   color: var(--ui-text);
-  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.55;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   background: var(--ui-bg);
 }
 
-html[data-theme="dark"] body {
-  background:
-    radial-gradient(circle at 12% 10%, rgba(56, 189, 248, 0.22) 0%, transparent 42%),
-    radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.08) 0%, transparent 35%),
-    var(--ui-bg);
+/* Dot-grid texture, fading out toward the bottom of the viewport */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+  background-size: 34px 34px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 10%, transparent 78%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 10%, transparent 78%);
 }
 
-html[data-theme="light"] body {
+/* Slow-drifting aurora glow */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
   background:
-    radial-gradient(circle at 8% 10%, rgba(56, 189, 248, 0.16) 0%, transparent 35%),
-    radial-gradient(circle at 90% 10%, rgba(148, 163, 184, 0.12) 0%, transparent 33%),
-    var(--ui-bg);
+    radial-gradient(38vw 38vw at 12% 18%, var(--aurora-1), transparent 60%),
+    radial-gradient(34vw 34vw at 88% 12%, var(--aurora-2), transparent 60%),
+    radial-gradient(30vw 30vw at 72% 82%, var(--aurora-3), transparent 62%);
+  filter: blur(28px);
+  animation: aurora-drift 30s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift {
+  from {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(3%, 2%, 0) scale(1.08);
+  }
 }
 
 ::selection {
@@ -69,12 +111,113 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
+/* ── Scroll progress bar ────────────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 70;
+  transform: scaleX(var(--sp, 0));
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--grad-a), var(--grad-c));
+  transition: transform 120ms linear;
+}
+
+/* ── Accent helpers ────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(118deg, var(--grad-a), var(--grad-b) 55%, var(--grad-c));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.accent-bar {
+  width: 4rem;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--grad-a), var(--grad-c));
+}
+
+.section-index {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--grad-a);
+}
+
+/* Live "open to work" dot with an expanding ring */
+.status-dot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #34d399;
+}
+
+.status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  animation: status-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes status-ping {
+  0% {
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 9px rgba(52, 211, 153, 0);
+  }
+}
+
+/* ── Avatar conic ring + float ─────────────────────────── */
+.avatar-ring::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: 9999px;
+  background: conic-gradient(
+    from 0deg,
+    var(--grad-a),
+    var(--grad-c),
+    var(--grad-b),
+    var(--grad-a)
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  animation: spin-slow 16s linear infinite;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-float {
+  animation: float-y 6s ease-in-out infinite alternate;
+}
+
+@keyframes float-y {
+  from {
+    transform: translateY(-7px);
+  }
+  to {
+    transform: translateY(7px);
+  }
+}
+
+/* ── Scroll reveal ─────────────────────────────────────── */
 html[data-motion-ready="true"] [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 18px, 0);
+  transform: translate3d(0, 22px, 0) scale(0.985);
+  filter: blur(6px);
   transition:
-    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 620ms ease;
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
@@ -82,6 +225,7 @@ html[data-motion-ready="true"] [data-reveal] {
 html[data-motion-ready="true"] [data-reveal].is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);
+  filter: blur(0);
   will-change: auto;
 }
 
@@ -113,9 +257,21 @@ html[data-motion-ready="true"] [data-reveal].is-visible {
     transition-delay: 0ms !important;
   }
 
+  body::after,
+  .avatar-ring::before,
+  .animate-float,
+  .status-dot::after {
+    animation: none !important;
+  }
+
+  .animate-float {
+    transform: none !important;
+  }
+
   html[data-motion-ready="true"] [data-reveal] {
     opacity: 1;
     transform: none;
+    filter: none;
   }
 
   .motion-card:hover,

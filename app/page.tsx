@@ -13,7 +13,7 @@ import {
   type FormEvent,
 } from "react";
 
-import { FaGithub, FaEnvelope, FaFacebook, FaInstagram, FaPhone } from "react-icons/fa";
+import { FaGithub, FaEnvelope, FaFacebook, FaInstagram, FaLinkedin, FaPhone } from "react-icons/fa";
 import { profile } from "@/data/profile";
 import { skills }  from "@/data/skills";
 import { projects } from "@/data/projects";
@@ -21,6 +21,7 @@ import { softSkills } from "@/data/softskills";
 import ProjectsSection from "@/app/components/ProjectsSection";
 import SoftSkillsSection from "@/app/components/LabSection";
 import ExperienceSection from "@/app/components/ExperienceSection";
+import UpdatesSection from "@/app/components/UpdatesSection";
 import MotionObserver from "@/app/components/MotionObserver";
 import { useSitePreferences } from "@/app/components/SitePreferencesProvider";
 import { getRevealDelay } from "@/lib/motion";
@@ -228,17 +229,27 @@ export default function HomePage() {
         id="home"
         className={`scroll-mt-16 min-h-[92vh] overflow-x-clip flex items-center px-6 md:px-20 py-20 ${
           isLight
-            ? "bg-gradient-to-br from-slate-50 via-white to-sky-50"
-            : "bg-gradient-to-br from-black via-zinc-950 to-slate-900"
+            ? "bg-gradient-to-b from-white/70 via-white/35 to-transparent"
+            : "bg-gradient-to-b from-zinc-950/70 via-zinc-950/30 to-transparent"
         }`}
       >
         <div className="max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Left */}
           <div data-reveal>
+            <span
+              className={`mb-5 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium ${
+                isLight
+                  ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                  : "border-emerald-400/25 bg-emerald-400/10 text-emerald-300"
+              }`}
+            >
+              <span className="status-dot" />
+              {isThai ? "พร้อมรับงานและช่วงฝึกงาน" : "Open to work & internships"}
+            </span>
             <p className={`font-semibold tracking-widest uppercase text-sm mb-3 ${isLight ? "text-sky-600" : "text-sky-300"}`}>
               {text.hello}
             </p>
-            <h1 className={`text-4xl sm:text-5xl lg:text-5xl font-extrabold leading-tight mb-3 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>
+            <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-3 text-gradient`}>
               {displayName}
             </h1>
             <h2 className={`text-xl sm:text-2xl font-semibold mb-5 ${isLight ? "text-sky-600" : "text-sky-300"}`}>
@@ -304,6 +315,18 @@ export default function HomePage() {
                 <FaGithub className="text-base" /> GitHub
               </a>
               <a
+                href={profile.links.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
+                  isLight
+                    ? "bg-white text-blue-700 border-blue-200 hover:border-blue-500"
+                    : "bg-zinc-900 text-blue-400 border-zinc-700 hover:border-blue-400"
+                }`}
+              >
+                <FaLinkedin className="text-base" /> LinkedIn
+              </a>
+              <a
                 href={profile.links.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -358,7 +381,11 @@ export default function HomePage() {
               { "--reveal-delay": getRevealDelay(1) } as CSSProperties
             }
           >
-            <div className="relative">
+            <div className="avatar-ring animate-float relative">
+              <div
+                aria-hidden="true"
+                className="absolute -inset-6 rounded-full bg-gradient-to-br from-sky-500/30 to-indigo-500/20 blur-2xl"
+              />
               <div
                 className={`relative w-60 h-60 rounded-full overflow-hidden flex items-center justify-center shadow-2xl ${
                   isLight
@@ -381,12 +408,6 @@ export default function HomePage() {
                   </span>
                 )}
               </div>
-              <div
-                className={`absolute -inset-4 rounded-full border-2 border-dashed animate-spin ${
-                  isLight ? "border-sky-400/60" : "border-sky-400/40"
-                }`}
-                style={{ animationDuration: "18s" }}
-              />
             </div>
           </div>
         </div>
@@ -396,8 +417,9 @@ export default function HomePage() {
       <section id="about" className={`scroll-mt-16 py-20 px-6 md:px-20 ${isLight ? "bg-slate-50" : "bg-black"}`}>
         <div className="max-w-6xl mx-auto">
           <div data-reveal>
-            <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{text.about}</h2>
-            <div className="w-16 h-1 bg-sky-400 rounded mb-12" />
+            <p className="section-index mb-1">02 · {text.about.toUpperCase()}</p>
+            <h2 className={`text-4xl md:text-5xl font-bold mb-3 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{text.about}</h2>
+            <div className="accent-bar mb-12" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -474,13 +496,18 @@ export default function HomePage() {
       {/* Edit soft skills & hobby in /data/softskills.ts */}
       <SoftSkillsSection />
 
+      {/* ──────────────── UPDATES ──────────────── */}
+      {/* Edit entries in /data/updates.ts */}
+      <UpdatesSection />
+
       {/* ──────────────── CONTACT ──────────────── */}
       {/* Edit links in /data/profile.ts → profile.links */}
       <section id="contact" className={`scroll-mt-16 py-20 px-6 md:px-20 ${isLight ? "bg-slate-100" : "bg-zinc-900"}`}>
         <div className="max-w-6xl mx-auto">
           <div data-reveal>
-            <h2 className={`text-4xl font-bold mb-2 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{text.contact}</h2>
-            <div className="w-16 h-1 bg-sky-400 rounded mb-4" />
+            <p className="section-index mb-1">07 · {text.contact.toUpperCase()}</p>
+            <h2 className={`text-4xl md:text-5xl font-bold mb-3 ${isLight ? "text-slate-900" : "text-zinc-100"}`}>{text.contact}</h2>
+            <div className="accent-bar mb-4" />
             <p className={`mb-10 ${isLight ? "text-slate-600" : "text-zinc-300"}`}>
               {text.contactSub}
             </p>
@@ -534,6 +561,23 @@ export default function HomePage() {
                 <span className={`font-semibold flex items-center gap-2 ${isLight ? "text-slate-700" : "text-zinc-200"}`}><FaGithub /> GitHub</span>
                 <span className={`text-sm break-all text-right ${isLight ? "text-slate-500" : "text-zinc-400"}`}>
                   {profile.links.github.replace("https://", "")}
+                </span>
+              </a>
+              <a
+                href={profile.links.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-reveal
+                style={{ "--reveal-delay": getRevealDelay(3) } as CSSProperties}
+                className={`motion-card flex items-center justify-between p-5 rounded-2xl border shadow-sm hover:border-blue-400/70 hover:shadow-md ${
+                  isLight
+                    ? "bg-white border-slate-200"
+                    : "bg-zinc-950 border-zinc-700"
+                }`}
+              >
+                <span className={`font-semibold flex items-center gap-2 ${isLight ? "text-blue-700" : "text-blue-400"}`}><FaLinkedin /> LinkedIn</span>
+                <span className={`text-sm break-all text-right ${isLight ? "text-slate-500" : "text-zinc-400"}`}>
+                  {profile.links.linkedin.replace("https://www.", "").replace(/\/$/, "")}
                 </span>
               </a>
               <a

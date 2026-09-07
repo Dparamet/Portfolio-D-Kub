@@ -8,10 +8,13 @@ Modern portfolio website built with **Next.js (App Router)**, **TypeScript**, an
 
 - 🌗 Toggle ธีม **Light / Dark**
 - 🌍 Toggle ภาษา **ไทย / English**
-- 🧭 Floating navigation (desktop rail + mobile bottom bar)
+- 🧭 Floating navigation (desktop rail + mobile bottom bar) + scroll progress bar
 - 💼 Work Experience Timeline จากข้อมูล Resume
 - 🗂️ Project cards สไตล์ **GitHub repo** — language dot, topic pills, live/repo links
 - 🔍 Filter โปรเจกต์ตามหมวดหมู่ (Web, IoT, Python, Java …)
+- 📰 Updates feed — สิ่งที่กำลังทำ เรียน และเพิ่งส่งมอบ (`data/updates.ts`)
+- 🔗 Social links: GitHub, LinkedIn, Facebook, Instagram, email, phone
+- 🎞️ Ambient UI — dot-grid texture + slow aurora glow, ทั้งหมด disable เมื่อ `prefers-reduced-motion`
 - 📨 Contact form ส่งข้อความผ่าน **EmailJS** (โหลด lazy — ไม่กระทบ initial bundle)
 - 📦 แยกข้อมูลคอนเทนต์ไว้ใน `data/` เพื่อแก้ไขง่าย
 
@@ -37,17 +40,20 @@ portfolio/
 │  ├─ globals.css                 # CSS variables + base styles
 │  └─ components/
 │     ├─ FloatingNav.tsx          # Desktop rail + mobile bottom bar
+│     ├─ ScrollProgress.tsx       # Top gradient scroll-progress bar
 │     ├─ PreferenceControls.tsx   # Theme / language toggle buttons
 │     ├─ ExperienceSection.tsx    # Work experience timeline
 │     ├─ ProjectsSection.tsx      # GitHub-style project cards + filter tabs
 │     ├─ LabSection.tsx           # Soft skills section
+│     ├─ UpdatesSection.tsx       # Latest-updates feed
 │     └─ SitePreferencesProvider.tsx  # Theme/language context (localStorage)
 ├─ data/
 │  ├─ profile.ts      # ชื่อ, role, bio, social links, info cards
 │  ├─ experiences.ts  # ประสบการณ์ทำงานสองภาษา
 │  ├─ projects.ts     # รายการโปรเจกต์ (title, tech, status, repo, link)
 │  ├─ skills.ts       # หมวดทักษะเทคนิค
-│  └─ softskills.ts   # soft skills / hobby items
+│  ├─ softskills.ts   # soft skills / hobby items
+│  └─ updates.ts      # Updates feed (newest first)
 ├─ lib/
 │  └─ contactValidation.ts  # Validate และ normalize ข้อมูล Contact form
 ├─ public/
@@ -134,6 +140,7 @@ npm run build
 | `data/projects.ts` | เพิ่ม/ลบ/แก้โปรเจกต์ + tech stack + status |
 | `data/skills.ts` | หมวดทักษะเทคนิค |
 | `data/softskills.ts` | soft skills / lab section |
+| `data/updates.ts` | Updates feed — เพิ่มรายการใหม่ไว้บนสุด (newest first) |
 
 ### เพิ่มโปรเจกต์ใหม่ใน `data/projects.ts`
 
@@ -183,11 +190,13 @@ npm run build
 
 ### Motion System
 
-- ทุก section ใช้ `data-reveal` เพื่อแสดงผลแบบ soft fade + slide ขึ้นเล็กน้อย
+- ทุก section ใช้ `data-reveal` เพื่อแสดงผลแบบ soft fade + slide + blur-in เล็กน้อย
 - รายการ card ใช้ `getRevealDelay(index)` จาก `lib/motion.ts` เพื่อ stagger ทีละ `80ms` และจำกัดสูงสุด `400ms`
 - เพิ่ม class `motion-card` ให้ card ใหม่ เพื่อใช้ gentle lift ตอน hover/focus
 - `MotionObserver.tsx` ใช้ observer กลางชุดเดียว และตรวจ card ใหม่หลังเปลี่ยน filter
-- ผู้ใช้ที่ตั้งค่า `prefers-reduced-motion: reduce` จะเห็นเนื้อหาทันทีโดยไม่มีการเคลื่อนไหว
+- `globals.css` มี ambient layers (`body::before` dot-grid, `body::after` aurora), scroll-progress bar และ helper: `.text-gradient`, `.accent-bar`, `.section-index`, `.avatar-ring`, `.animate-float`, `.status-dot`
+- accent gradient คุมด้วย CSS variables (`--grad-a/b/c`) แยกค่าตามธีม light/dark
+- ผู้ใช้ที่ตั้งค่า `prefers-reduced-motion: reduce` จะเห็นเนื้อหาทันทีโดยไม่มีการเคลื่อนไหว (aurora / float / ring หยุดทั้งหมด)
 
 ### เปลี่ยนรูปโปรไฟล์
 
@@ -219,7 +228,9 @@ npm run build
 - [ ] Backend + Supabase database
 - [ ] Admin CRM panel (เปลี่ยนรูป/content โดยไม่ต้องแก้ code)
 - [x] Lightweight scroll reveal + card lift animations
+- [x] Ambient background + scroll progress + Updates feed
 - [ ] SEO meta + Open Graph image
+- [ ] Resume / CV download (PDF)
 
 ---
 

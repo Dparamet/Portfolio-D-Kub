@@ -14,6 +14,7 @@ export interface ProfileLinks {
   phone: string;
   email: string;
   github: string;
+  linkedin: string;
   facebook: string;
   instagram: string;
 }
@@ -62,6 +63,7 @@ export const profile: Profile = {
     phone: "0911293125",
     email: "paramet.arrington4@gmail.com",
     github: "https://github.com/Dparamet",
+    linkedin: "https://www.linkedin.com/in/paramet-arrington-b5694a395/",
     facebook: "https://www.facebook.com/d.paramet.2024/",
     instagram: "https://www.instagram.com/d_paramet/",
   },
