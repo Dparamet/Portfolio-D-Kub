@@ -94,17 +94,17 @@ test("soft-skill photos use accessible local static assets", () => {
   }
 });
 
-test("soft-skill cards 1-10 use the profile photo centered in the frame", () => {
+test("every soft-skill card ships a real preview image", () => {
   const softSkills = loadSoftSkills();
 
-  for (const item of softSkills.filter(({ id }) => id <= 10)) {
-    assert.equal(item.image, "/profile.jpg", `${item.title}: image`);
-    assert.equal(
-      item.imageAlt,
-      "Dparamet practicing continuous self improvement",
-      `${item.title}: imageAlt`,
+  assert.ok(softSkills.length > 0, "keep at least one soft-skill card");
+  for (const item of softSkills) {
+    assert.ok(item.image?.trim(), `${item.title}: image is required`);
+    assert.notEqual(
+      item.image,
+      "/profile.jpg",
+      `${item.title}: replace the placeholder profile photo with a real preview`,
     );
-    assert.equal(item.imagePosition, "center", `${item.title}: imagePosition`);
   }
 });
 
