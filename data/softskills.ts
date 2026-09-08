@@ -1,7 +1,7 @@
 // =============================================================================
-// SOFT SKILLS + HOBBY CONTENT
+// SOFT SKILLS CONTENT (leadership, competitions, communication, teamwork)
 // Used by: app/components/LabSection.tsx
-// Image folder: /public/soft-skills/ -> "/soft-skills/file.webp"
+// Image folders: /public/softskills/ and /public/competitions/
 // Full guide: data/README.md
 // =============================================================================
 
@@ -17,8 +17,8 @@ export interface SoftSkillItem {
   focusTH: string;
   level: SoftSkillLevel;
   category: string;
-  image?: string;
-  imageAlt?: string;
+  image: string;
+  imageAlt: string;
   imagePosition?: "center" | "top";
   link?: string;
 }
@@ -26,8 +26,8 @@ export interface SoftSkillItem {
 // -----------------------------------------------------------------------------
 // EDIT SOFT SKILL CARDS HERE
 // Required: id, title, titleTH, description, descriptionTH, focus, focusTH,
-// level, category
-// Optional: image, imageAlt, imagePosition, link
+// level, category, image (a real 16:9 preview — not /profile.jpg), imageAlt
+// Optional: imagePosition ("center" | "top"), link
 // -----------------------------------------------------------------------------
 export const softSkills: SoftSkillItem[] = [
   {
@@ -164,7 +164,7 @@ export const softSkills: SoftSkillItem[] = [
   // Copy this block, paste it above this guide, then edit the values.
   // ===========================================================================
   // {
-  //   id: 14, // required, must be unique
+  //   id: 19, // required, must be unique
   //   title: "Time Management",
   //   titleTH: "การบริหารเวลา",
   //   description: "How this skill helps you work or build projects.",
@@ -174,12 +174,12 @@ export const softSkills: SoftSkillItem[] = [
   //   level: "Growing", // "Strong" | "Growing" | "Practice"
   //   category: "Leadership", // automatically becomes a filter tab
   //
-  //   // Optional image fields — use all image fields together
-  //   image: "/soft-skills/time-management.webp",
+  //   // Required: a real 16:9 preview image (public/softskills or public/competitions)
+  //   image: "/softskills/time-management.webp",
   //   imageAlt: "Planning tasks and priorities on a desk",
-  //   imagePosition: "center", // "top" | "center"
   //
-  //   // Optional external URL
+  //   // Optional
+  //   imagePosition: "center", // "top" | "center"
   //   link: "https://example.com",
   // },
 ];

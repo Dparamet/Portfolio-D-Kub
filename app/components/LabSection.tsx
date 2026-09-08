@@ -13,10 +13,8 @@ const categoryTH: Record<string, string> = {
   All: "ทั้งหมด",
   Communication: "การสื่อสาร",
   Teamwork: "การทำงานเป็นทีม",
-  "Problem Solving": "การแก้ปัญหา",
   Leadership: "ภาวะผู้นำ",
   Competition: "การแข่งขัน",
-  Hobby: "งานอดิเรก",
 };
 
 const levelTH: Record<string, string> = {
@@ -46,10 +44,6 @@ const categoryColors: Record<string, { card: string; tag: string }> = {
     card: "border-cyan-500/30 hover:border-cyan-400/70",
     tag: "bg-cyan-500/15 text-cyan-200 border-cyan-500/35",
   },
-  "Problem Solving": {
-    card: "border-blue-500/30 hover:border-blue-400/70",
-    tag: "bg-blue-500/15 text-blue-200 border-blue-500/35",
-  },
   Leadership: {
     card: "border-indigo-500/30 hover:border-indigo-400/70",
     tag: "bg-indigo-500/15 text-indigo-200 border-indigo-500/35",
@@ -57,10 +51,6 @@ const categoryColors: Record<string, { card: string; tag: string }> = {
   Competition: {
     card: "border-amber-500/30 hover:border-amber-400/70",
     tag: "bg-amber-500/15 text-amber-200 border-amber-500/35",
-  },
-  Hobby: {
-    card: "border-pink-500/30 hover:border-pink-400/70",
-    tag: "bg-pink-500/15 text-pink-200 border-pink-500/35",
   },
   default: {
     card: "border-zinc-700 hover:border-sky-500/60",
